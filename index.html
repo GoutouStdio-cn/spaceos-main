@@ -4,9 +4,8 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>SpaceOS 6</title>
-    <!-- Tailwind -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
     <script src="https://cdn.tailwindcss.com"></script>
-    <!-- 字体 -->
     <link href="https://fonts.googleapis.com/css2?family=Noto+Serif+SC:wght@400;700&display=swap" rel="stylesheet">
     <style>
         body {
@@ -19,7 +18,6 @@
             theme: {
                 extend: {
                     colors: {
-                        // 配色
                         vistaBlue: '#0078d7',
                         vistaLight: '#e5f1fb',
                         vistaMid: '#c1daf7',
@@ -34,9 +32,9 @@
                         'float': 'float 6s ease-in-out infinite',
                         'pulse-slow': 'pulse 3s cubic-bezier(0.4, 0, 0.6, 1) infinite',
                         'vista-glow': 'vista-glow 2s ease-in-out infinite alternate',
+                        'ripple': 'ripple 0.8s cubic-bezier(0.25, 0.46, 0.45, 0.94) forwards',
                     },
                     boxShadow: {
-                        // 阴影
                         'vista': '0 4px 12px rgba(0, 0, 0, 0.15), 0 1px 3px rgba(0, 0, 0, 0.1), inset 0 1px 0 rgba(255, 255, 255, 0.8)',
                         'vista-inner': 'inset 0 1px 3px rgba(255, 255, 255, 0.9), inset 0 -1px 2px rgba(0, 0, 0, 0.05)',
                     }
@@ -47,51 +45,45 @@
     
     <style type="text/tailwindcss">
         @layer utilities {
-            /* 毛玻璃效果 */
+            /* 优化毛玻璃：降低亮度/提升通透感 */
             .vista-glass {
-                /* 深度毛玻璃模糊 */
-                background: rgba(242, 248, 255, 0.65);
-                backdrop-filter: blur(18px);
-                -webkit-backdrop-filter: blur(18px);
-                /* 边框 */
-                border: 1px solid rgba(118, 169, 207, 0.9);
-                /* 多层次阴影增强立体感 */
+                /* 降低背景不透明度，增强模糊和通透感 */
+                background: rgba(242, 248, 255, 0.35);
+                backdrop-filter: blur(22px);
+                -webkit-backdrop-filter: blur(22px);
+                border: 1px solid rgba(118, 169, 207, 0.6);
                 box-shadow: 
-                    0 1px 0 rgba(255, 255, 255, 0.8) inset,
+                    0 1px 0 rgba(255, 255, 255, 0.5) inset,
                     0 3px 8px rgba(0, 0, 0, 0.12),
                     0 0 1px rgba(0, 0, 0, 0.1);
-                /* 细微的内发光 */
-                outline: 1px solid rgba(255, 255, 255, 0.5);
+                outline: 1px solid rgba(255, 255, 255, 0.3);
             }
             
             .vista-glass-dark {
-                background: rgba(230, 240, 250, 0.75);
-                backdrop-filter: blur(15px);
-                -webkit-backdrop-filter: blur(15px);
-                border: 1px solid rgba(118, 169, 207, 0.8);
+                /* 降低深色毛玻璃亮度，提升通透 */
+                background: rgba(230, 240, 250, 0.4);
+                backdrop-filter: blur(20px);
+                -webkit-backdrop-filter: blur(20px);
+                border: 1px solid rgba(118, 169, 207, 0.5);
                 box-shadow: 
-                    0 1px 0 rgba(255, 255, 255, 0.9) inset,
+                    0 1px 0 rgba(255, 255, 255, 0.6) inset,
                     0 2px 6px rgba(0, 0, 0, 0.08);
             }
             
-            /* 标题栏样式 */
             .vista-titlebar {
-                /* 渐变标题栏 */
+                /* 降低标题栏亮度，增强通透 */
                 background: linear-gradient(to bottom, 
-                    #ffffff 0%, 
-                    #e8f2fc 15%, 
-                    #d7e8f6 50%, 
-                    #c5dcf3 85%, 
-                    #b8d1eb 100%);
-                /* 标题栏下边框 */
-                border-bottom: 1px solid #7aa7c7;
-                /* 内阴影增强质感 */
+                    rgba(255, 255, 255, 0.5) 0%, 
+                    rgba(232, 242, 252, 0.45) 15%, 
+                    rgba(215, 232, 246, 0.4) 50%, 
+                    rgba(197, 220, 243, 0.35) 85%, 
+                    rgba(184, 209, 235, 0.3) 100%);
+                border-bottom: 1px solid rgba(122, 167, 199, 0.7);
                 box-shadow: 
-                    0 1px 0 rgba(255, 255, 255, 0.8) inset,
-                    0 -1px 0 rgba(0, 0, 0, 0.05) inset;
+                    0 1px 0 rgba(255, 255, 255, 0.5) inset,
+                    0 -1px 0 rgba(0, 0, 0, 0.03) inset;
             }
             
-            /* 窗口控制按钮 */
             .vista-control {
                 width: 45px;
                 height: 24px;
@@ -104,7 +96,6 @@
                 transition: all 0.15s ease;
             }
             
-            /* 关闭按钮 */
             .vista-control-close {
                 background: linear-gradient(to bottom, #ff6b6b 0%, #e55353 100%);
                 color: white;
@@ -116,7 +107,6 @@
                 box-shadow: 0 1px 2px rgba(0, 0, 0, 0.2);
             }
             
-            /* 最小化按钮 */
             .vista-control-minimize {
                 background: linear-gradient(to bottom, #ffd166 0%, #e6bc5c 100%);
                 color: #333;
@@ -128,7 +118,6 @@
                 box-shadow: 0 1px 2px rgba(0, 0, 0, 0.15);
             }
             
-            /* 最大化按钮 */
             .vista-control-maximize {
                 background: linear-gradient(to bottom, #06d6a0 0%, #05c08e 100%);
                 color: white;
@@ -140,7 +129,6 @@
                 box-shadow: 0 1px 2px rgba(0, 0, 0, 0.2);
             }
             
-            /* 按钮样式 */
             .vista-button {
                 background: linear-gradient(to bottom, 
                     #ffffff 0%, 
@@ -176,6 +164,36 @@
                 pointer-events: none;
             }
             
+            /* 保留3D立体涟漪效果 */
+            .ripple-effect {
+                position: absolute;
+                border-radius: 50%;
+                background: radial-gradient(
+                    circle, 
+                    rgba(255, 255, 255, 0.95) 0%, 
+                    rgba(240, 248, 255, 0.85) 20%, 
+                    rgba(200, 225, 250, 0.7) 40%, 
+                    rgba(150, 200, 250, 0.5) 60%, 
+                    rgba(100, 180, 255, 0.3) 80%, 
+                    transparent 100%
+                );
+                box-shadow: 
+                    0 0 10px rgba(255, 255, 255, 0.9),
+                    0 0 20px rgba(150, 200, 255, 0.7),
+                    inset 0 1px 3px rgba(255, 255, 255, 0.9),
+                    inset 0 -1px 2px rgba(100, 180, 255, 0.5);
+                transform: scale(0) translateZ(20px);
+                transform-origin: center center;
+                pointer-events: none;
+                z-index: 20;
+                border: 1px solid rgba(255, 255, 255, 0.8);
+                opacity: 1;
+            }
+            
+            .countdown-card {
+                transition: transform 0.3s ease, box-shadow 0.3s ease;
+            }
+            
             @keyframes vista-glow {
                 from { box-shadow: 0 0 8px rgba(118, 169, 207, 0.6); }
                 to { box-shadow: 0 0 15px rgba(118, 169, 207, 0.9); }
@@ -195,6 +213,33 @@
                     opacity: 0.7;
                 }
             }
+            
+            @keyframes ripple {
+                0% {
+                    transform: scale(0) translateZ(20px);
+                    opacity: 1;
+                    box-shadow: 
+                        0 0 5px rgba(255, 255, 255, 0.9),
+                        0 0 10px rgba(150, 200, 255, 0.7),
+                        inset 0 1px 3px rgba(255, 255, 255, 0.9);
+                }
+                50% {
+                    transform: scale(1) translateZ(10px);
+                    opacity: 0.7;
+                    box-shadow: 
+                        0 0 15px rgba(255, 255, 255, 0.9),
+                        0 0 30px rgba(150, 200, 255, 0.7),
+                        inset 0 1px 3px rgba(255, 255, 255, 0.9);
+                }
+                100% {
+                    transform: scale(1.5) translateZ(0);
+                    opacity: 0;
+                    box-shadow: 
+                        0 0 20px rgba(255, 255, 255, 0.5),
+                        0 0 40px rgba(150, 200, 255, 0.3),
+                        inset 0 1px 3px rgba(255, 255, 255, 0.5);
+                }
+            }
         }
         
         body {
@@ -208,16 +253,11 @@
             transition: all 0.3s ease-in-out;
         }
         
-        .countdown-card {
-            transition: transform 0.3s ease, box-shadow 0.3s ease;
-        }
-        
         .countdown-card:hover {
             transform: translateY(-5px);
             box-shadow: 0 8px 20px rgba(0, 0, 0, 0.15);
         }
         
-        /* 窗口边框装饰 */
         .window-frame {
             position: relative;
         }
@@ -229,33 +269,33 @@
             left: 1px;
             right: 1px;
             bottom: 1px;
-            border: 1px solid rgba(255, 255, 255, 0.7);
+            border: 1px solid rgba(255, 255, 255, 0.5);
             pointer-events: none;
             border-radius: 8px;
+        }
+        
+        /* 优化窗口内容区域背景，增强毛玻璃 */
+        .bg-glassBg\/40 {
+            background-color: rgba(242, 248, 255, 0.2) !important;
         }
     </style>
 </head>
 <body class="bg-vistaLight text-gray-800 min-h-screen flex flex-col items-center justify-center" id="app-body">
-    <!-- 背景图片 -->
     <div class="fixed inset-0 z-0">
-        <img src="https://p3-flow-imagex-sign.byteimg.com/tos-cn-i-a9rns2rl98/rc/pc/super_tool/457c4dbd7b854bffa2e05e5b391f0f5a~tplv-a9rns2rl98-image.image?rcl=20251126181242F9EA7C2192A4ED825576&rk3s=8e244e95&rrcfp=f06b921b&x-expires=1766743996&x-signature=awavu75HBdjmjwWOP1yKMm1y6HM%3D" 
-             alt="Windows Vista 经典背景" 
+        <img src="https://picsum.photos/id/15/1920/1080" 
+             alt="山间风景壁纸" 
              class="w-full h-full object-cover">
     </div>
     
-    <!-- 气泡容器 -->
     <div id="bubbles-container" class="fixed inset-0 z-10 pointer-events-none"></div>
+    <div id="ripple-container" class="fixed inset-0 z-20 pointer-events-none"></div>
     
-    <!-- 主要内容 -->
     <div class="relative z-30 flex flex-col items-center justify-center w-full px-4 py-8">
-        <!-- 标志/标题 -->
         <div class="vista-glass rounded-full p-4 mb-8 shadow-vista animate-float animate-vista-glow">
             <h1 class="text-4xl md:text-6xl text-vistaBlue tracking-wider text-glow">SpaceOS 6</h1>
         </div>
         
-        <!-- 倒计时显示 -->
         <div class="vista-glass rounded-lg w-full max-w-4xl shadow-vista overflow-hidden window-frame">
-            <!-- 窗口标题栏 -->
             <div class="vista-titlebar px-3 py-2 flex items-center justify-between">
                 <div class="flex items-center">
                     <h2 class="text-lg font-medium text-gray-700">发布倒计时</h2>
@@ -274,13 +314,11 @@
                 </div>
             </div>
             
-            <!-- 窗口内容 -->
             <div class="p-8 md:p-12 bg-glassBg/40">
                 <div class="flex flex-col items-center">
                     <h3 class="text-xl md:text-2xl font-light mb-8 text-center text-vistaBlue text-glow">即将发布！！！</h3>
                     
                     <div class="grid grid-cols-2 md:grid-cols-4 gap-4 md:gap-8 w-full">
-                        <!-- 天 -->
                         <div class="flex flex-col items-center countdown-card">
                             <div class="vista-glass-dark rounded-lg p-4 md:p-6 mb-2 shadow-vista-inner">
                                 <div class="countdown-digit text-5xl md:text-7xl font-bold text-vistaBlue" id="days">00</div>
@@ -288,7 +326,6 @@
                             <div class="text-sm md:text-base uppercase tracking-wider text-gray-600">天</div>
                         </div>
                         
-                        <!-- 时 -->
                         <div class="flex flex-col items-center countdown-card">
                             <div class="vista-glass-dark rounded-lg p-4 md:p-6 mb-2 shadow-vista-inner">
                                 <div class="countdown-digit text-5xl md:text-7xl font-bold text-vistaBlue" id="hours">00</div>
@@ -296,7 +333,6 @@
                             <div class="text-sm md:text-base uppercase tracking-wider text-gray-600">时</div>
                         </div>
                         
-                        <!-- 分 -->
                         <div class="flex flex-col items-center countdown-card">
                             <div class="vista-glass-dark rounded-lg p-4 md:p-6 mb-2 shadow-vista-inner">
                                 <div class="countdown-digit text-5xl md:text-7xl font-bold text-vistaBlue" id="minutes">00</div>
@@ -304,7 +340,6 @@
                             <div class="text-sm md:text-base uppercase tracking-wider text-gray-600">分</div>
                         </div>
                         
-                        <!-- 秒 -->
                         <div class="flex flex-col items-center countdown-card">
                             <div class="vista-glass-dark rounded-lg p-4 md:p-6 mb-2 shadow-vista-inner">
                                 <div class="countdown-digit text-5xl md:text-7xl font-bold text-vistaBlue" id="seconds">00</div>
@@ -313,21 +348,19 @@
                         </div>
                     </div>
                     
-                    <div class="mt-12 text-center text-sm text-gray-600 bg-white/50 px-4 py-2 rounded-lg shadow-sm">
+                    <div class="mt-12 text-center text-sm text-gray-600 bg-white/30 px-4 py-2 rounded-lg shadow-sm">
                         <p>发布时间：2026年4月2日 17:30</p>
                     </div>
                 </div>
             </div>
         </div>
         
-        <!-- Vista 风格装饰元素 -->
         <div class="mt-12 flex justify-center space-x-4">
             <div class="w-4 h-4 rounded-full bg-vistaBlue animate-pulse"></div>
             <div class="w-4 h-4 rounded-full bg-green-400 animate-pulse" style="animation-delay: 0.5s"></div>
             <div class="w-4 h-4 rounded-full bg-yellow-400 animate-pulse" style="animation-delay: 1s"></div>
         </div>
         
-        <!-- 页脚 -->
         <div class="mt-8 vista-glass-dark rounded-full px-6 py-2 text-sm text-gray-600 shadow-sm">
             <p>&copy; 2022-2025 GoutouStdio, 保留所有权利。</p>
         </div>
@@ -335,18 +368,17 @@
 
     <script>
         document.addEventListener('DOMContentLoaded', () => {
-            // 设置目标日期和时间：2026年4月2日 17:30:00
             const targetDate = new Date(2026, 3, 2, 17, 30, 0).getTime();
             
-            // DOM元素
             const daysElement = document.getElementById('days');
             const hoursElement = document.getElementById('hours');
             const minutesElement = document.getElementById('minutes');
             const secondsElement = document.getElementById('seconds');
             const bubblesContainer = document.getElementById('bubbles-container');
+            const rippleContainer = document.getElementById('ripple-container');
             const appBody = document.getElementById('app-body');
+            const bgImage = document.querySelector('.fixed img');
             
-            // 存储上一次的值用于比较
             let previousValues = {
                 days: daysElement.textContent,
                 hours: hoursElement.textContent,
@@ -354,15 +386,25 @@
                 seconds: secondsElement.textContent
             };
             
-            // 更新倒计时函数
+            function throttle(func, limit) {
+                let inThrottle;
+                return function() {
+                    const args = arguments;
+                    const context = this;
+                    if (!inThrottle) {
+                        func.apply(context, args);
+                        inThrottle = true;
+                        setTimeout(() => inThrottle = false, limit);
+                    }
+                }
+            }
+            
             function updateCountdown() {
                 try {
                     const now = new Date().getTime();
                     const distance = targetDate - now;
                     
-                    // 确保距离是正数
                     if (distance <= 0) {
-                        // 倒计时结束
                         clearInterval(countdownInterval);
                         document.querySelectorAll('.countdown-digit').forEach(el => {
                             el.textContent = '00';
@@ -370,19 +412,16 @@
                         return;
                     }
                     
-                    // 计算时间组件
                     const days = Math.floor(distance / (1000 * 60 * 60 * 24));
                     const hours = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
                     const minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
                     const seconds = Math.floor((distance % (1000 * 60)) / 1000);
                     
-                    // 格式化数字为两位数
                     const formattedDays = days.toString().padStart(2, '0');
                     const formattedHours = hours.toString().padStart(2, '0');
                     const formattedMinutes = minutes.toString().padStart(2, '0');
                     const formattedSeconds = seconds.toString().padStart(2, '0');
                     
-                    // 检查每个值是否变化，如果变化则更新并添加动画
                     if (formattedDays !== previousValues.days) {
                         daysElement.textContent = formattedDays;
                         previousValues.days = formattedDays;
@@ -408,7 +447,6 @@
                     }
                 } catch (error) {
                     console.error('更新倒计时时出错:', error);
-                    // 出错时显示默认值
                     daysElement.textContent = '00';
                     hoursElement.textContent = '00';
                     minutesElement.textContent = '00';
@@ -416,7 +454,6 @@
                 }
             }
             
-            // 为变化的数字添加 Vista 风格动画
             function animateElement(element) {
                 element.classList.add('scale-110', 'text-vistaBlue/90', 'shadow-md');
                 setTimeout(() => {
@@ -424,58 +461,56 @@
                 }, 300);
             }
             
-            // 创建 Vista 风格气泡
             function createBubbles() {
-                // 清除现有气泡
-                bubblesContainer.innerHTML = '';
+                const bubbleCount = 30;
+                const existingBubbles = bubblesContainer.querySelectorAll('.bubble');
+                const existingCount = existingBubbles.length;
                 
-                // 创建30个气泡
-                for (let i = 0; i < 30; i++) {
+                for (let i = 0; i < Math.min(existingCount, bubbleCount); i++) {
+                    const bubble = existingBubbles[i];
+                    updateBubbleProperties(bubble);
+                }
+                
+                for (let i = existingCount; i < bubbleCount; i++) {
                     const bubble = document.createElement('div');
                     bubble.classList.add('bubble');
-                    
-                    // 随机属性
-                    const size = Math.random() * 30 + 10;
-                    const opacity = Math.random() * 0.6 + 0.3;
-                    
-                    const posX = Math.random() * 100;
-                    const posY = Math.random() * 100;
-                    
-                    const duration = Math.random() * 15 + 10;
-                    const delay = Math.random() * 5;
-                    
-                    // 应用样式
-                    bubble.style.width = `${size}px`;
-                    bubble.style.height = `${size}px`;
-                    bubble.style.opacity = opacity;
-                    bubble.style.left = `${posX}%`;
-                    bubble.style.top = `${posY}%`;
-                    bubble.style.animation = `float ${duration}s infinite ease-in-out`;
-                    bubble.style.animationDelay = `${delay}s`;
-                    
+                    updateBubbleProperties(bubble);
                     bubblesContainer.appendChild(bubble);
+                }
+                
+                for (let i = bubbleCount; i < existingCount; i++) {
+                    existingBubbles[i].remove();
                 }
             }
             
-            // 鼠标移动效果
-            let mouseX = 0;
-            let mouseY = 0;
+            function updateBubbleProperties(bubble) {
+                const size = Math.random() * 30 + 10;
+                const opacity = Math.random() * 0.6 + 0.3;
+                const posX = Math.random() * 100;
+                const posY = Math.random() * 100;
+                const duration = Math.random() * 15 + 10;
+                const delay = Math.random() * 5;
+                
+                bubble.style.width = `${size}px`;
+                bubble.style.height = `${size}px`;
+                bubble.style.opacity = opacity;
+                bubble.style.left = `${posX}%`;
+                bubble.style.top = `${posY}%`;
+                bubble.style.animation = `float ${duration}s infinite ease-in-out`;
+                bubble.style.animationDelay = `${delay}s`;
+            }
             
-            appBody.addEventListener('mousemove', (e) => {
+            appBody.addEventListener('mousemove', throttle((e) => {
                 mouseX = e.clientX / window.innerWidth - 0.5;
                 mouseY = e.clientY / window.innerHeight - 0.5;
                 
-                // 背景视差效果
-                const bgImage = document.querySelector('.fixed img');
                 bgImage.style.transform = `translate(${mouseX * 10}px, ${mouseY * 10}px)`;
                 
-                // 偶尔在鼠标移动时创建一个气泡
                 if (Math.random() > 0.85) {
                     createFloatingBubble(e.clientX, e.clientY);
                 }
-            });
+            }, 50));
             
-            // 创建浮动气泡
             function createFloatingBubble(x, y) {
                 const bubble = document.createElement('div');
                 bubble.classList.add('bubble');
@@ -490,21 +525,42 @@
                 bubble.style.top = `${y}px`;
                 bubble.style.transform = 'translate(-50%, -50%)';
                 
-                // 随机上升方向
-                const angle = Math.random() * Math.PI / 4 - Math.PI / 8; // -22.5° 到 22.5°
+                const angle = Math.random() * Math.PI / 4 - Math.PI / 8;
                 const duration = Math.random() * 3 + 2;
                 
                 bubble.style.animation = `floatBubble ${duration}s forwards ease-in-out`;
                 
                 bubblesContainer.appendChild(bubble);
                 
-                // 动画完成后移除气泡
                 setTimeout(() => {
                     bubble.remove();
                 }, duration * 1000);
             }
             
-            // 添加气泡浮动动画
+            // 恢复全局点击涟漪（点击任何地方都显示）
+            function createRipple(e) {
+                const size = Math.max(window.innerWidth, window.innerHeight) * 0.2;
+                const ripple = document.createElement('div');
+                ripple.classList.add('ripple-effect');
+                
+                // 全局坐标计算
+                ripple.style.width = `${size}px`;
+                ripple.style.height = `${size}px`;
+                ripple.style.left = `${e.clientX - size/2}px`;
+                ripple.style.top = `${e.clientY - size/2}px`;
+                ripple.style.animation = 'ripple 0.8s cubic-bezier(0.25, 0.46, 0.45, 0.94) forwards';
+                
+                rippleContainer.appendChild(ripple);
+                
+                // 动画结束后移除
+                setTimeout(() => {
+                    ripple.remove();
+                }, 800);
+            }
+            
+            // 全局点击监听
+            document.addEventListener('click', createRipple);
+            
             const styleSheet = document.createElement("style");
             styleSheet.textContent = `
                 @keyframes floatBubble {
@@ -520,17 +576,12 @@
             `;
             document.head.appendChild(styleSheet);
             
-            // 初始化
             updateCountdown();
             createBubbles();
             
-            // 每秒更新倒计时
             const countdownInterval = setInterval(updateCountdown, 1000);
-            
-            // 每20秒刷新气泡
             setInterval(createBubbles, 20000);
             
-            // 处理窗口大小变化
             window.addEventListener('resize', () => {
                 createBubbles();
             });
