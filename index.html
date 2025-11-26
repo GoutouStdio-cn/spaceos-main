@@ -4,11 +4,9 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>SpaceOS 6 - 倒计时</title>
-    <!-- Tailwind CSS -->
+    <!-- Tailwind -->
     <script src="https://cdn.tailwindcss.com"></script>
-    <!-- Font Awesome -->
-    <link href="https://cdn.jsdelivr.net/npm/font-awesome@4.7.0/css/font-awesome.min.css" rel="stylesheet">
-    <!-- Noto Serif 字体 -->
+    <!-- 字体 -->
     <link href="https://fonts.googleapis.com/css2?family=Noto+Serif+SC:wght@400;700&display=swap" rel="stylesheet">
     <style>
         body {
@@ -21,7 +19,7 @@
             theme: {
                 extend: {
                     colors: {
-                        // Windows Vista 经典配色
+                        // 配色
                         vistaBlue: '#0078d7',
                         vistaLight: '#e5f1fb',
                         vistaMid: '#c1daf7',
@@ -38,7 +36,7 @@
                         'vista-glow': 'vista-glow 2s ease-in-out infinite alternate',
                     },
                     boxShadow: {
-                        // Windows Vista 经典阴影
+                        // 阴影
                         'vista': '0 4px 12px rgba(0, 0, 0, 0.15), 0 1px 3px rgba(0, 0, 0, 0.1), inset 0 1px 0 rgba(255, 255, 255, 0.8)',
                         'vista-inner': 'inset 0 1px 3px rgba(255, 255, 255, 0.9), inset 0 -1px 2px rgba(0, 0, 0, 0.05)',
                     }
@@ -49,13 +47,13 @@
     
     <style type="text/tailwindcss">
         @layer utilities {
-            /* 增强版 Windows Vista Aero 毛玻璃效果 */
+            /* 毛玻璃效果 */
             .vista-glass {
                 /* 深度毛玻璃模糊 */
                 background: rgba(242, 248, 255, 0.65);
                 backdrop-filter: blur(18px);
                 -webkit-backdrop-filter: blur(18px);
-                /* Vista 经典边框 */
+                /* 边框 */
                 border: 1px solid rgba(118, 169, 207, 0.9);
                 /* 多层次阴影增强立体感 */
                 box-shadow: 
@@ -76,9 +74,9 @@
                     0 2px 6px rgba(0, 0, 0, 0.08);
             }
             
-            /* Windows Vista 标题栏样式 */
+            /* 标题栏样式 */
             .vista-titlebar {
-                /* Vista 经典渐变标题栏 */
+                /* 渐变标题栏 */
                 background: linear-gradient(to bottom, 
                     #ffffff 0%, 
                     #e8f2fc 15%, 
@@ -93,7 +91,7 @@
                     0 -1px 0 rgba(0, 0, 0, 0.05) inset;
             }
             
-            /* Vista 窗口控制按钮 - 经典样式 */
+            /* 窗口控制按钮 */
             .vista-control {
                 width: 45px;
                 height: 24px;
@@ -142,7 +140,7 @@
                 box-shadow: 0 1px 2px rgba(0, 0, 0, 0.2);
             }
             
-            /* Vista 按钮样式 */
+            /* 按钮样式 */
             .vista-button {
                 background: linear-gradient(to bottom, 
                     #ffffff 0%, 
@@ -219,7 +217,7 @@
             box-shadow: 0 8px 20px rgba(0, 0, 0, 0.15);
         }
         
-        /* Vista 窗口边框装饰 */
+        /* 窗口边框装饰 */
         .window-frame {
             position: relative;
         }
@@ -238,7 +236,7 @@
     </style>
 </head>
 <body class="bg-vistaLight text-gray-800 min-h-screen flex flex-col items-center justify-center" id="app-body">
-    <!-- 背景图片 - Vista 经典蓝天白云 -->
+    <!-- 背景图片 -->
     <div class="fixed inset-0 z-0">
         <img src="https://p3-flow-imagex-sign.byteimg.com/tos-cn-i-a9rns2rl98/rc/pc/super_tool/457c4dbd7b854bffa2e05e5b391f0f5a~tplv-a9rns2rl98-image.image?rcl=20251126181242F9EA7C2192A4ED825576&rk3s=8e244e95&rrcfp=f06b921b&x-expires=1766743996&x-signature=awavu75HBdjmjwWOP1yKMm1y6HM%3D" 
              alt="Windows Vista 经典背景" 
@@ -279,7 +277,7 @@
             <!-- 窗口内容 -->
             <div class="p-8 md:p-12 bg-glassBg/40">
                 <div class="flex flex-col items-center">
-                    <h3 class="text-xl md:text-2xl font-light mb-8 text-center text-vistaBlue text-glow">即将发布于 2026</h3>
+                    <h3 class="text-xl md:text-2xl font-light mb-8 text-center text-vistaBlue text-glow">即将发布！！！</h3>
                     
                     <div class="grid grid-cols-2 md:grid-cols-4 gap-4 md:gap-8 w-full">
                         <!-- 天 -->
