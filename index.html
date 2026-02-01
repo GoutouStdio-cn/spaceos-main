@@ -12,6 +12,17 @@
     <style>
         body {
             font-family: 'Noto Serif SC', serif;
+            cursor: default;
+            user-select: none;
+            -webkit-user-select: none;
+        }
+        
+        .draggable {
+            -webkit-app-region: drag;
+        }
+        
+        .non-draggable {
+            -webkit-app-region: no-drag;
         }
     </style>
     
@@ -49,7 +60,6 @@
         @layer utilities {
             /* 优化毛玻璃：降低亮度/提升通透感 */
             .vista-glass {
-                /* 降低背景不透明度，增强模糊和通透感 */
                 background: rgba(242, 248, 255, 0.35);
                 backdrop-filter: blur(22px);
                 -webkit-backdrop-filter: blur(22px);
@@ -62,7 +72,6 @@
             }
             
             .vista-glass-dark {
-                /* 降低深色毛玻璃亮度，提升通透 */
                 background: rgba(230, 240, 250, 0.4);
                 backdrop-filter: blur(20px);
                 -webkit-backdrop-filter: blur(20px);
@@ -73,7 +82,6 @@
             }
             
             .vista-titlebar {
-                /* 降低标题栏亮度，增强通透 */
                 background: linear-gradient(to bottom, 
                     rgba(255, 255, 255, 0.5) 0%, 
                     rgba(232, 242, 252, 0.45) 15%, 
@@ -84,6 +92,7 @@
                 box-shadow: 
                     0 1px 0 rgba(255, 255, 255, 0.5) inset,
                     0 -1px 0 rgba(0, 0, 0, 0.03) inset;
+                cursor: move;
             }
             
             .vista-control {
@@ -96,6 +105,7 @@
                 justify-content: center;
                 border: 1px solid transparent;
                 transition: all 0.15s ease;
+                cursor: pointer;
             }
             
             .vista-control-close {
@@ -166,7 +176,6 @@
                 pointer-events: none;
             }
             
-            /* 保留3D立体涟漪效果 */
             .ripple-effect {
                 position: absolute;
                 border-radius: 50%;
@@ -194,6 +203,25 @@
             
             .countdown-card {
                 transition: transform 0.3s ease, box-shadow 0.3s ease;
+            }
+            
+            .window-frame {
+                position: fixed;
+                top: 50%;
+                left: 50%;
+                transform: translate(-50%, -50%);
+                transition: transform 0.1s ease-out;
+                z-index: 1000;
+            }
+            
+            .window-frame.maximized {
+                top: 20px;
+                left: 20px;
+                right: 20px;
+                bottom: 20px;
+                transform: none;
+                width: auto;
+                max-width: none;
             }
             
             @keyframes vista-glow {
@@ -249,6 +277,7 @@
             background-attachment: fixed;
             background-position: center;
             background-size: cover;
+            touch-action: none;
         }
         
         .countdown-digit {
@@ -258,10 +287,6 @@
         .countdown-card:hover {
             transform: translateY(-5px);
             box-shadow: 0 8px 20px rgba(0, 0, 0, 0.15);
-        }
-        
-        .window-frame {
-            position: relative;
         }
         
         .window-frame::before {
@@ -276,13 +301,53 @@
             border-radius: 8px;
         }
         
-        /* 优化窗口内容区域背景，增强毛玻璃 */
         .bg-glassBg\/40 {
             background-color: rgba(242, 248, 255, 0.2) !important;
         }
+        
+        /* 状态指示器 */
+        .status-indicator {
+            width: 8px;
+            height: 8px;
+            border-radius: 50%;
+            margin-right: 6px;
+            display: inline-block;
+        }
+        
+        .status-online {
+            background-color: #06d6a0;
+            box-shadow: 0 0 8px rgba(6, 214, 160, 0.5);
+        }
+        
+        .status-offline {
+            background-color: #ff6b6b;
+        }
+        
+        /* 优化响应式排版 */
+        @media (max-width: 640px) {
+            .countdown-digit {
+                font-size: 2.5rem !important;
+            }
+            
+            .window-frame {
+                width: 95% !important;
+                margin: 10px;
+            }
+            
+            .vista-glass {
+                padding: 1.5rem !important;
+            }
+        }
+        
+        @media (max-width: 768px) {
+            .countdown-grid {
+                grid-template-columns: repeat(2, 1fr) !important;
+                gap: 1rem !important;
+            }
+        }
     </style>
 </head>
-<body class="bg-vistaLight text-gray-800 min-h-screen flex flex-col items-center justify-center" id="app-body">
+<body class="bg-vistaLight text-gray-800 min-h-screen" id="app-body">
     <div class="fixed inset-0 z-0">
         <img src="https://picsum.photos/id/15/1920/1080" 
              alt="山间风景壁纸" 
@@ -292,91 +357,161 @@
     <div id="bubbles-container" class="fixed inset-0 z-10 pointer-events-none"></div>
     <div id="ripple-container" class="fixed inset-0 z-20 pointer-events-none"></div>
     
-    <div class="relative z-30 flex flex-col items-center justify-center w-full px-4 py-8">
-        <div class="vista-glass rounded-full p-4 mb-8 shadow-vista animate-float animate-vista-glow">
-            <h1 class="text-4xl md:text-6xl text-vistaBlue tracking-wider text-glow">SpaceOS 6</h1>
-        </div>
-        
-        <div class="vista-glass rounded-lg w-full max-w-4xl shadow-vista overflow-hidden window-frame">
-            <div class="vista-titlebar px-3 py-2 flex items-center justify-between">
-                <div class="flex items-center">
-                    <h2 class="text-lg font-medium text-gray-700">发布倒计时</h2>
-                </div>
-                
-                <div class="flex items-center">
-                    <div class="vista-control vista-control-minimize">
-                        <i class="fa fa-minus"></i>
-                    </div>
-                    <div class="vista-control vista-control-maximize">
-                        <i class="fa fa-square-o"></i>
-                    </div>
-                    <div class="vista-control vista-control-close">
-                        <i class="fa fa-times"></i>
-                    </div>
-                </div>
+    <!-- 主窗口 -->
+    <div id="main-window" class="window-frame vista-glass rounded-lg w-full max-w-4xl shadow-vista overflow-hidden">
+        <div class="vista-titlebar px-3 py-2 flex items-center justify-between draggable" id="window-titlebar">
+            <div class="flex items-center">
+                <span class="status-indicator status-online"></span>
+                <h2 class="text-lg font-medium text-gray-700">SpaceOS 6 发布倒计时</h2>
             </div>
             
-            <div class="p-8 md:p-12 bg-glassBg/40">
-                <div class="flex flex-col items-center">
-                    <h3 class="text-xl md:text-2xl font-light mb-8 text-center text-vistaBlue text-glow">即将发布！！！</h3>
+            <div class="flex items-center non-draggable">
+                <div class="vista-control vista-control-minimize" id="minimize-btn">
+                    <i class="fa fa-minus"></i>
+                </div>
+                <div class="vista-control vista-control-maximize" id="maximize-btn">
+                    <i class="fa fa-expand"></i>
+                </div>
+                <div class="vista-control vista-control-close" id="close-btn">
+                    <i class="fa fa-times"></i>
+                </div>
+            </div>
+        </div>
+        
+        <div class="p-6 md:p-8 bg-glassBg/40">
+            <div class="flex flex-col items-center">
+                <!-- 标题区域 -->
+                <div class="vista-glass-dark rounded-full px-8 py-3 mb-6 shadow-vista-inner">
+                    <h1 class="text-2xl md:text-3xl text-vistaBlue tracking-wider text-center text-glow">
+                        <i class="fa fa-rocket mr-2"></i>SpaceOS 6 即将发布
+                    </h1>
+                </div>
+                
+                <!-- 系统信息 -->
+                <div class="vista-glass-dark rounded-lg p-4 mb-6 w-full shadow-vista-inner">
+                    <div class="grid grid-cols-2 md:grid-cols-4 gap-3 text-sm">
+                        <div class="text-center">
+                            <div class="text-gray-600">版本</div>
+                            <div class="font-medium text-vistaBlue">6.0.0</div>
+                        </div>
+                        <div class="text-center">
+                            <div class="text-gray-600">代号</div>
+                            <div class="font-medium text-vistaBlue">SmallCute</div>
+                        </div>
+                        <div class="text-center">
+                            <div class="text-gray-600">架构</div>
+                            <div class="font-medium text-vistaBlue">64位</div>
+                        </div>
+                        <div class="text-center">
+                            <div class="text-gray-600">状态</div>
+                            <div class="font-medium text-green-500">开发中</div>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- 倒计时区域 -->
+                <div class="mb-8 text-center">
+                    <h3 class="text-xl md:text-2xl font-light mb-2 text-vistaBlue text-glow">
+                        <i class="fa fa-clock-o mr-2"></i>距离发布还有
+                    </h3>
+                    <p class="text-gray-600 mb-6">全新体验，即将启程</p>
                     
-                    <div class="grid grid-cols-2 md:grid-cols-4 gap-4 md:gap-8 w-full">
+                    <div class="grid grid-cols-2 md:grid-cols-4 gap-4 md:gap-6 w-full countdown-grid">
                         <div class="flex flex-col items-center countdown-card">
-                            <div class="vista-glass-dark rounded-lg p-4 md:p-6 mb-2 shadow-vista-inner">
-                                <div class="countdown-digit text-5xl md:text-7xl font-bold text-vistaBlue" id="days">00</div>
+                            <div class="vista-glass-dark rounded-lg p-4 md:p-5 mb-2 shadow-vista-inner w-full">
+                                <div class="countdown-digit text-4xl md:text-6xl font-bold text-vistaBlue" id="days">00</div>
                             </div>
                             <div class="text-sm md:text-base uppercase tracking-wider text-gray-600">天</div>
                         </div>
                         
                         <div class="flex flex-col items-center countdown-card">
-                            <div class="vista-glass-dark rounded-lg p-4 md:p-6 mb-2 shadow-vista-inner">
-                                <div class="countdown-digit text-5xl md:text-7xl font-bold text-vistaBlue" id="hours">00</div>
+                            <div class="vista-glass-dark rounded-lg p-4 md:p-5 mb-2 shadow-vista-inner w-full">
+                                <div class="countdown-digit text-4xl md:text-6xl font-bold text-vistaBlue" id="hours">00</div>
                             </div>
                             <div class="text-sm md:text-base uppercase tracking-wider text-gray-600">时</div>
                         </div>
                         
                         <div class="flex flex-col items-center countdown-card">
-                            <div class="vista-glass-dark rounded-lg p-4 md:p-6 mb-2 shadow-vista-inner">
-                                <div class="countdown-digit text-5xl md:text-7xl font-bold text-vistaBlue" id="minutes">00</div>
+                            <div class="vista-glass-dark rounded-lg p-4 md:p-5 mb-2 shadow-vista-inner w-full">
+                                <div class="countdown-digit text-4xl md:text-6xl font-bold text-vistaBlue" id="minutes">00</div>
                             </div>
                             <div class="text-sm md:text-base uppercase tracking-wider text-gray-600">分</div>
                         </div>
                         
                         <div class="flex flex-col items-center countdown-card">
-                            <div class="vista-glass-dark rounded-lg p-4 md:p-6 mb-2 shadow-vista-inner">
-                                <div class="countdown-digit text-5xl md:text-7xl font-bold text-vistaBlue" id="seconds">00</div>
+                            <div class="vista-glass-dark rounded-lg p-4 md:p-5 mb-2 shadow-vista-inner w-full">
+                                <div class="countdown-digit text-4xl md:text-6xl font-bold text-vistaBlue" id="seconds">00</div>
                             </div>
                             <div class="text-sm md:text-base uppercase tracking-wider text-gray-600">秒</div>
                         </div>
                     </div>
-                    
-                    <div class="mt-12 text-center text-sm text-gray-600 bg-white/30 px-4 py-2 rounded-lg shadow-sm">
-                        <p>发布时间：2026年4月2日 17:30</p>
+                </div>
+                
+                <!-- 发布时间和访问统计 -->
+                <div class="vista-glass-dark rounded-lg p-5 w-full shadow-vista-inner">
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                        <div class="text-center md:text-left">
+                            <h4 class="font-medium text-gray-700 mb-2">
+                                <i class="fa fa-calendar mr-2 text-vistaBlue"></i>发布时间
+                            </h4>
+                            <p class="text-lg font-bold text-vistaBlue">2026年5月2日 16:00</p>
+                            <p class="text-sm text-gray-600 mt-1">北京时间 (UTC+8)</p>
+                        </div>
+                        
+                        <div class="text-center md:text-right">
+                            <h4 class="font-medium text-gray-700 mb-2">
+                                <i class="fa fa-eye mr-2 text-vistaBlue"></i>访问统计
+                            </h4>
+                            <p class="text-lg font-bold text-vistaBlue">
+                                总访问: <span id="busuanzi_value_site_pv">0</span> 次
+                            </p>
+                            <p class="text-sm text-gray-600 mt-1">实时更新</p>
+                        </div>
                     </div>
-                    
-                    <!-- 添加访问次数显示 -->
-                    <div class="mt-6 text-center text-sm text-gray-600 bg-white/30 px-4 py-2 rounded-lg shadow-sm">
-                        <p>总访问次数：<span id="busuanzi_value_site_pv" class="font-medium text-vistaBlue"></span> 次</p>
-                    </div>
+                </div>
+                
+                <!-- 功能按钮 -->
+                <div class="flex flex-wrap justify-center gap-3 mt-6">
+                    <button class="vista-button px-5 py-2 text-sm font-medium text-gray-700 non-draggable">
+                        <i class="fa fa-info-circle mr-2"></i>了解更多
+                    </button>
+                    <button class="vista-button px-5 py-2 text-sm font-medium text-gray-700 non-draggable">
+                        <i class="fa fa-bell mr-2"></i>订阅通知
+                    </button>
+                    <button class="vista-button px-5 py-2 text-sm font-medium text-gray-700 non-draggable">
+                        <i class="fa fa-download mr-2"></i>关于
+                    </button>
                 </div>
             </div>
         </div>
         
-        <div class="mt-12 flex justify-center space-x-4">
-            <div class="w-4 h-4 rounded-full bg-vistaBlue animate-pulse"></div>
-            <div class="w-4 h-4 rounded-full bg-green-400 animate-pulse" style="animation-delay: 0.5s"></div>
-            <div class="w-4 h-4 rounded-full bg-yellow-400 animate-pulse" style="animation-delay: 1s"></div>
+        <!-- 窗口状态栏 -->
+        <div class="vista-titlebar px-3 py-1 flex items-center justify-between text-xs text-gray-600 border-t border-vistaBorder/30">
+            <div class="flex items-center">
+                <i class="fa fa-cog mr-1"></i>
+                <span>SpaceOS 6 倒计时</span>
+            </div>
+            <div class="flex items-center">
+                <span class="mr-3">GoutouStdio © 2022-2026</span>
+                <span id="current-time">00:00:00</span>
+            </div>
         </div>
-        
-        <div class="mt-8 vista-glass-dark rounded-full px-6 py-2 text-sm text-gray-600 shadow-sm">
-            <p>&copy; 2022-2025 GoutouStdio, 保留所有权利。</p>
+    </div>
+
+    <!-- 任务栏提示 -->
+    <div class="fixed bottom-4 left-1/2 transform -translate-x-1/2 z-50">
+        <div class="vista-glass-dark rounded-full px-4 py-2 text-sm text-gray-600 shadow-sm flex items-center">
+            <i class="fa fa-arrows mr-2 text-vistaBlue"></i>
+            <span>拖动标题栏移动窗口，点击控制按钮操作。</span>
         </div>
     </div>
 
     <script>
         document.addEventListener('DOMContentLoaded', () => {
-            const targetDate = new Date(2026, 3, 2, 17, 30, 0).getTime();
+            // 更新时间：2026年5月2日 16:00 (UTC+8)
+            const targetDate = new Date(2026, 4, 2, 16, 0, 0).getTime(); // 月份从0开始，所以5月是4
             
+            // 元素引用
             const daysElement = document.getElementById('days');
             const hoursElement = document.getElementById('hours');
             const minutesElement = document.getElementById('minutes');
@@ -385,26 +520,141 @@
             const rippleContainer = document.getElementById('ripple-container');
             const appBody = document.getElementById('app-body');
             const bgImage = document.querySelector('.fixed img');
+            const mainWindow = document.getElementById('main-window');
+            const titlebar = document.getElementById('window-titlebar');
+            const currentTimeElement = document.getElementById('current-time');
             
+            // 窗口控制按钮
+            const minimizeBtn = document.getElementById('minimize-btn');
+            const maximizeBtn = document.getElementById('maximize-btn');
+            const closeBtn = document.getElementById('close-btn');
+            
+            // 窗口拖动状态
+            let isDragging = false;
+            let dragOffset = { x: 0, y: 0 };
+            let windowPosition = { x: 0, y: 0 };
+            let isMaximized = false;
+            let originalPosition = null;
+            let originalSize = null;
+            
+            // 初始化窗口位置
+            function initWindowPosition() {
+                const rect = mainWindow.getBoundingClientRect();
+                windowPosition.x = rect.left;
+                windowPosition.y = rect.top;
+            }
+            
+            // 更新当前时间
+            function updateCurrentTime() {
+                const now = new Date();
+                const timeString = now.toLocaleTimeString('zh-CN', { 
+                    hour12: false,
+                    hour: '2-digit',
+                    minute: '2-digit',
+                    second: '2-digit'
+                });
+                currentTimeElement.textContent = timeString;
+            }
+            
+            // 窗口拖动功能
+            titlebar.addEventListener('mousedown', (e) => {
+                if (e.target.classList.contains('non-draggable') || 
+                    e.target.closest('.non-draggable')) {
+                    return;
+                }
+                
+                isDragging = true;
+                const rect = mainWindow.getBoundingClientRect();
+                dragOffset.x = e.clientX - rect.left;
+                dragOffset.y = e.clientY - rect.top;
+                
+                mainWindow.style.transition = 'none';
+                document.body.style.cursor = 'move';
+            });
+            
+            document.addEventListener('mousemove', (e) => {
+                if (!isDragging || isMaximized) return;
+                
+                windowPosition.x = e.clientX - dragOffset.x;
+                windowPosition.y = e.clientY - dragOffset.y;
+                
+                // 限制窗口在视口内
+                const windowRect = mainWindow.getBoundingClientRect();
+                const maxX = window.innerWidth - windowRect.width;
+                const maxY = window.innerHeight - windowRect.height;
+                
+                windowPosition.x = Math.max(0, Math.min(windowPosition.x, maxX));
+                windowPosition.y = Math.max(0, Math.min(windowPosition.y, maxY));
+                
+                mainWindow.style.left = `${windowPosition.x}px`;
+                mainWindow.style.top = `${windowPosition.y}px`;
+                mainWindow.style.transform = 'none';
+            });
+            
+            document.addEventListener('mouseup', () => {
+                if (isDragging) {
+                    isDragging = false;
+                    document.body.style.cursor = 'default';
+                    mainWindow.style.transition = 'transform 0.1s ease-out';
+                }
+            });
+            
+            // 窗口控制功能
+            minimizeBtn.addEventListener('click', () => {
+                mainWindow.style.opacity = '0.5';
+                mainWindow.style.transform = 'scale(0.95)';
+                setTimeout(() => {
+                    mainWindow.style.opacity = '1';
+                    mainWindow.style.transform = 'scale(1)';
+                }, 300);
+                createRipple({ clientX: minimizeBtn.offsetLeft, clientY: minimizeBtn.offsetTop });
+            });
+            
+            maximizeBtn.addEventListener('click', () => {
+                if (!isMaximized) {
+                    // 最大化
+                    originalPosition = {
+                        x: mainWindow.style.left,
+                        y: mainWindow.style.top
+                    };
+                    originalSize = {
+                        width: mainWindow.style.width,
+                        height: mainWindow.style.height
+                    };
+                    
+                    mainWindow.classList.add('maximized');
+                    maximizeBtn.innerHTML = '<i class="fa fa-compress"></i>';
+                    isMaximized = true;
+                } else {
+                    // 恢复
+                    mainWindow.classList.remove('maximized');
+                    if (originalPosition.x && originalPosition.y) {
+                        mainWindow.style.left = originalPosition.x;
+                        mainWindow.style.top = originalPosition.y;
+                    }
+                    mainWindow.style.transform = 'translate(-50%, -50%)';
+                    maximizeBtn.innerHTML = '<i class="fa fa-expand"></i>';
+                    isMaximized = false;
+                }
+                createRipple({ clientX: maximizeBtn.offsetLeft, clientY: maximizeBtn.offsetTop });
+            });
+            
+            closeBtn.addEventListener('click', () => {
+                mainWindow.style.opacity = '0';
+                mainWindow.style.transform = 'scale(0.8) translate(-50%, -50%)';
+                setTimeout(() => {
+                    alert('窗口已关闭。刷新页面重新打开。');
+                }, 300);
+                createRipple({ clientX: closeBtn.offsetLeft, clientY: closeBtn.offsetTop });
+            });
+            
+            // 倒计时功能
             let previousValues = {
                 days: daysElement.textContent,
                 hours: hoursElement.textContent,
                 minutes: minutesElement.textContent,
                 seconds: secondsElement.textContent
             };
-            
-            function throttle(func, limit) {
-                let inThrottle;
-                return function() {
-                    const args = arguments;
-                    const context = this;
-                    if (!inThrottle) {
-                        func.apply(context, args);
-                        inThrottle = true;
-                        setTimeout(() => inThrottle = false, limit);
-                    }
-                }
-            }
             
             function updateCountdown() {
                 try {
@@ -416,6 +666,11 @@
                         document.querySelectorAll('.countdown-digit').forEach(el => {
                             el.textContent = '00';
                         });
+                        // 发布完成提示
+                        const titleElement = document.querySelector('.vista-glass-dark h1');
+                        if (titleElement) {
+                            titleElement.innerHTML = '<i class="fa fa-check-circle mr-2"></i>SpaceOS 6 已发布！';
+                        }
                         return;
                     }
                     
@@ -454,10 +709,6 @@
                     }
                 } catch (error) {
                     console.error('更新倒计时时出错:', error);
-                    daysElement.textContent = '00';
-                    hoursElement.textContent = '00';
-                    minutesElement.textContent = '00';
-                    secondsElement.textContent = '00';
                 }
             }
             
@@ -468,62 +719,64 @@
                 }, 300);
             }
             
+            // 气泡效果
             function createBubbles() {
-                const bubbleCount = 30;
+                const bubbleCount = 25;
                 const existingBubbles = bubblesContainer.querySelectorAll('.bubble');
-                const existingCount = existingBubbles.length;
                 
-                for (let i = 0; i < Math.min(existingCount, bubbleCount); i++) {
-                    const bubble = existingBubbles[i];
-                    updateBubbleProperties(bubble);
+                // 移除多余气泡
+                if (existingBubbles.length > bubbleCount) {
+                    for (let i = bubbleCount; i < existingBubbles.length; i++) {
+                        existingBubbles[i].remove();
+                    }
                 }
                 
-                for (let i = existingCount; i < bubbleCount; i++) {
+                // 添加新气泡
+                for (let i = existingBubbles.length; i < bubbleCount; i++) {
                     const bubble = document.createElement('div');
                     bubble.classList.add('bubble');
-                    updateBubbleProperties(bubble);
+                    
+                    const size = Math.random() * 25 + 8;
+                    const opacity = Math.random() * 0.5 + 0.3;
+                    const posX = Math.random() * 100;
+                    const posY = Math.random() * 100;
+                    const duration = Math.random() * 20 + 15;
+                    const delay = Math.random() * 5;
+                    
+                    bubble.style.width = `${size}px`;
+                    bubble.style.height = `${size}px`;
+                    bubble.style.opacity = opacity;
+                    bubble.style.left = `${posX}%`;
+                    bubble.style.top = `${posY}%`;
+                    bubble.style.animation = `float ${duration}s infinite ease-in-out`;
+                    bubble.style.animationDelay = `${delay}s`;
+                    
                     bubblesContainer.appendChild(bubble);
                 }
-                
-                for (let i = bubbleCount; i < existingCount; i++) {
-                    existingBubbles[i].remove();
-                }
             }
             
-            function updateBubbleProperties(bubble) {
-                const size = Math.random() * 30 + 10;
-                const opacity = Math.random() * 0.6 + 0.3;
-                const posX = Math.random() * 100;
-                const posY = Math.random() * 100;
-                const duration = Math.random() * 15 + 10;
-                const delay = Math.random() * 5;
-                
-                bubble.style.width = `${size}px`;
-                bubble.style.height = `${size}px`;
-                bubble.style.opacity = opacity;
-                bubble.style.left = `${posX}%`;
-                bubble.style.top = `${posY}%`;
-                bubble.style.animation = `float ${duration}s infinite ease-in-out`;
-                bubble.style.animationDelay = `${delay}s`;
-            }
+            // 鼠标移动效果
+            let mouseX = 0, mouseY = 0;
             
-            appBody.addEventListener('mousemove', throttle((e) => {
+            appBody.addEventListener('mousemove', (e) => {
                 mouseX = e.clientX / window.innerWidth - 0.5;
                 mouseY = e.clientY / window.innerHeight - 0.5;
                 
-                bgImage.style.transform = `translate(${mouseX * 10}px, ${mouseY * 10}px)`;
+                // 背景视差效果
+                bgImage.style.transform = `translate(${mouseX * 15}px, ${mouseY * 15}px) scale(1.05)`;
                 
-                if (Math.random() > 0.85) {
+                // 随机创建气泡
+                if (Math.random() > 0.9) {
                     createFloatingBubble(e.clientX, e.clientY);
                 }
-            }, 50));
+            });
             
             function createFloatingBubble(x, y) {
                 const bubble = document.createElement('div');
                 bubble.classList.add('bubble');
                 
-                const size = Math.random() * 15 + 5;
-                const opacity = Math.random() * 0.7 + 0.4;
+                const size = Math.random() * 12 + 3;
+                const opacity = Math.random() * 0.6 + 0.3;
                 
                 bubble.style.width = `${size}px`;
                 bubble.style.height = `${size}px`;
@@ -532,8 +785,7 @@
                 bubble.style.top = `${y}px`;
                 bubble.style.transform = 'translate(-50%, -50%)';
                 
-                const angle = Math.random() * Math.PI / 4 - Math.PI / 8;
-                const duration = Math.random() * 3 + 2;
+                const duration = Math.random() * 2 + 1.5;
                 
                 bubble.style.animation = `floatBubble ${duration}s forwards ease-in-out`;
                 
@@ -544,13 +796,12 @@
                 }, duration * 1000);
             }
             
-            // 恢复全局点击涟漪（点击任何地方都显示）
+            // 涟漪效果
             function createRipple(e) {
-                const size = Math.max(window.innerWidth, window.innerHeight) * 0.2;
+                const size = Math.max(window.innerWidth, window.innerHeight) * 0.15;
                 const ripple = document.createElement('div');
                 ripple.classList.add('ripple-effect');
                 
-                // 全局坐标计算
                 ripple.style.width = `${size}px`;
                 ripple.style.height = `${size}px`;
                 ripple.style.left = `${e.clientX - size/2}px`;
@@ -559,15 +810,20 @@
                 
                 rippleContainer.appendChild(ripple);
                 
-                // 动画结束后移除
                 setTimeout(() => {
                     ripple.remove();
                 }, 800);
             }
             
-            // 全局点击监听
-            document.addEventListener('click', createRipple);
+            // 全局点击涟漪效果
+            document.addEventListener('click', (e) => {
+                if (!e.target.classList.contains('non-draggable') && 
+                    !e.target.closest('.non-draggable')) {
+                    createRipple(e);
+                }
+            });
             
+            // 添加浮动气泡动画
             const styleSheet = document.createElement("style");
             styleSheet.textContent = `
                 @keyframes floatBubble {
@@ -576,21 +832,54 @@
                         opacity: 0.8;
                     }
                     100% {
-                        transform: translate(-50%, -50%) translateY(-100px) translateX(20px);
+                        transform: translate(-50%, -50%) translateY(-80px) translateX(15px);
                         opacity: 0;
                     }
                 }
             `;
             document.head.appendChild(styleSheet);
             
+            // 初始化
+            initWindowPosition();
             updateCountdown();
+            updateCurrentTime();
             createBubbles();
             
+            // 设置定时器
             const countdownInterval = setInterval(updateCountdown, 1000);
-            setInterval(createBubbles, 20000);
+            const timeInterval = setInterval(updateCurrentTime, 1000);
+            setInterval(createBubbles, 15000);
             
+            // 窗口调整大小
             window.addEventListener('resize', () => {
+                if (!isMaximized) {
+                    // 确保窗口在调整大小时保持在视口内
+                    const rect = mainWindow.getBoundingClientRect();
+                    const maxX = window.innerWidth - rect.width;
+                    const maxY = window.innerHeight - rect.height;
+                    
+                    windowPosition.x = Math.max(0, Math.min(windowPosition.x, maxX));
+                    windowPosition.y = Math.max(0, Math.min(windowPosition.y, maxY));
+                    
+                    mainWindow.style.left = `${windowPosition.x}px`;
+                    mainWindow.style.top = `${windowPosition.y}px`;
+                }
+                
                 createBubbles();
+            });
+            
+            // 添加键盘快捷键
+            document.addEventListener('keydown', (e) => {
+                // ESC键退出最大化
+                if (e.key === 'Escape' && isMaximized) {
+                    maximizeBtn.click();
+                }
+                
+                // Ctrl+Q关闭窗口
+                if (e.ctrlKey && e.key === 'q') {
+                    closeBtn.click();
+                    e.preventDefault();
+                }
             });
         });
     </script>
