@@ -18,7 +18,7 @@
     
     <!-- 主窗口 -->
     <div id="main-window" class="fixed z-40 overflow-hidden transition-all duration-300 ease-out vista-aero-window"
-         style="width: 500px; min-height: 580px; opacity: 0; transform: scale(0.95);">
+         style="width: 500px; min-height: 600px; opacity: 0; transform: scale(0.95);">
         
         <!-- Aero玻璃效果层 -->
         <div class="vista-aero-glass"></div>
@@ -49,9 +49,99 @@
             </div>
         </div>
         
+        <!-- 菜单栏 -->
+        <div class="absolute top-10 left-0 right-0 h-7 vista-menubar flex items-center px-3 text-xs border-b border-white/10">
+            <div class="flex space-x-4">
+                <div class="menu-item" data-menu="file">
+                    <span class="text-white/90 hover:text-white cursor-default px-2 py-1">文件(F)</span>
+                    <div class="menu-dropdown" id="file-menu">
+                        <div class="menu-option" data-action="new">新建窗口</div>
+                        <div class="menu-option" data-action="open">打开...</div>
+                        <div class="menu-divider"></div>
+                        <div class="menu-option" data-action="save">保存设置</div>
+                        <div class="menu-option" data-action="export">导出数据</div>
+                        <div class="menu-divider"></div>
+                        <div class="menu-option" data-action="exit">退出</div>
+                    </div>
+                </div>
+                <div class="menu-item" data-menu="edit">
+                    <span class="text-white/90 hover:text-white cursor-default px-2 py-1">编辑(E)</span>
+                    <div class="menu-dropdown" id="edit-menu">
+                        <div class="menu-option" data-action="undo">撤销</div>
+                        <div class="menu-option" data-action="redo">重做</div>
+                        <div class="menu-divider"></div>
+                        <div class="menu-option" data-action="cut">剪切</div>
+                        <div class="menu-option" data-action="copy">复制</div>
+                        <div class="menu-option" data-action="paste">粘贴</div>
+                    </div>
+                </div>
+                <div class="menu-item" data-menu="view">
+                    <span class="text-white/90 hover:text-white cursor-default px-2 py-1">查看(V)</span>
+                    <div class="menu-dropdown" id="view-menu">
+                        <div class="menu-option" data-action="refresh">刷新</div>
+                        <div class="menu-option" data-action="zoom-in">放大</div>
+                        <div class="menu-option" data-action="zoom-out">缩小</div>
+                        <div class="menu-divider"></div>
+                        <div class="menu-option" data-action="fullscreen">全屏显示</div>
+                    </div>
+                </div>
+                <div class="menu-item" data-menu="tools">
+                    <span class="text-white/90 hover:text-white cursor-default px-2 py-1">工具(T)</span>
+                    <div class="menu-dropdown" id="tools-menu">
+                        <div class="menu-option" data-action="settings">系统设置</div>
+                        <div class="menu-option" data-action="update">检查更新</div>
+                        <div class="menu-divider"></div>
+                        <div class="menu-option" data-action="diagnostics">系统诊断</div>
+                        <div class="menu-option" data-action="performance">性能优化</div>
+                    </div>
+                </div>
+                <div class="menu-item" data-menu="help">
+                    <span class="text-white/90 hover:text-white cursor-default px-2 py-1">帮助(H)</span>
+                    <div class="menu-dropdown" id="help-menu">
+                        <div class="menu-option" data-action="help-content">帮助主题</div>
+                        <div class="menu-option" data-action="about">关于 SpaceOS 6</div>
+                        <div class="menu-divider"></div>
+                        <div class="menu-option" data-action="feedback">发送反馈</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <!-- 工具栏 -->
+        <div class="absolute top-17 left-0 right-0 h-9 vista-toolbar flex items-center px-3 border-b border-white/10">
+            <div class="flex space-x-2">
+                <button class="toolbar-btn" id="back-btn" title="后退">
+                    <i class="fa fa-arrow-left text-blue-300 mr-1"></i>
+                    <span class="text-xs text-white/90">后退</span>
+                </button>
+                <button class="toolbar-btn" id="forward-btn" title="前进">
+                    <i class="fa fa-arrow-right text-blue-300 mr-1"></i>
+                    <span class="text-xs text-white/90">前进</span>
+                </button>
+                <div class="w-px h-5 bg-white/20 mx-2"></div>
+                <button class="toolbar-btn" id="home-btn" title="主页">
+                    <i class="fa fa-home text-blue-300 mr-1"></i>
+                    <span class="text-xs text-white/90">主页</span>
+                </button>
+                <button class="toolbar-btn" id="print-btn" title="打印">
+                    <i class="fa fa-print text-blue-300 mr-1"></i>
+                    <span class="text-xs text-white/90">打印</span>
+                </button>
+            </div>
+        </div>
+        
+        <!-- 地址栏 -->
+        <div class="absolute top-26 left-0 right-0 h-8 px-3 flex items-center">
+            <div class="text-xs text-white/70 mr-2">地址:</div>
+            <div class="flex-1 vista-addressbar px-3 py-1.5 flex items-center">
+                <i class="fa fa-folder text-yellow-400 mr-2 text-sm"></i>
+                <span class="text-xs text-white/90">SpaceOS 6 > 发布倒计时</span>
+            </div>
+        </div>
+        
         <!-- 内容区域 -->
-        <div class="absolute top-10 left-0 right-0 bottom-0 overflow-auto vista-content-area">
-            <div class="p-6">
+        <div class="absolute top-34 left-0 right-0 bottom-7 vista-content-area overflow-auto">
+            <div class="p-5">
                 <!-- 主标题 -->
                 <div class="text-center mb-8">
                     <div class="inline-block bg-gradient-to-r from-blue-600/20 to-purple-600/20 backdrop-blur-sm px-8 py-3 rounded-xl border border-white/20 shadow-lg">
@@ -59,7 +149,7 @@
                             <i class="fa fa-rocket mr-3 animate-pulse"></i>SpaceOS 6 即将发布
                         </h1>
                     </div>
-                    <p class="text-white/80 text-sm mt-3">全新操作系统体验，即将为您呈现</p>
+                    <p class="text-white/80 text-sm mt-3">专为低性能 x64 位架构优化的轻量级操作系统</p>
                 </div>
                 
                 <!-- 系统信息卡片 -->
@@ -75,12 +165,18 @@
                         </div>
                         <div class="text-center p-3 rounded-lg bg-white/5 backdrop-blur-sm">
                             <div class="text-xs text-white/60 mb-1">架构</div>
-                            <div class="text-sm font-bold text-white">64位</div>
+                            <div class="text-sm font-bold text-white">x64</div>
                         </div>
                         <div class="text-center p-3 rounded-lg bg-white/5 backdrop-blur-sm">
                             <div class="text-xs text-white/60 mb-1">状态</div>
                             <div class="text-sm font-bold text-green-300">开发中</div>
                         </div>
+                    </div>
+                    <div class="mt-4 p-3 bg-gradient-to-r from-blue-900/30 to-purple-900/30 rounded-lg border border-blue-500/20">
+                        <p class="text-xs text-white/80 text-center">
+                            <i class="fa fa-info-circle mr-1 text-blue-300"></i>
+                            专为低性能 x86_64 位电脑优化，内存占用低于 512MB，CPU 要求仅 1GHz
+                        </p>
                     </div>
                 </div>
                 
@@ -121,7 +217,7 @@
                     </div>
                 </div>
                 
-                <!-- 信息卡片 -->
+                <!-- 发布时间和访问统计 -->
                 <div class="vista-card mb-8">
                     <div class="grid grid-cols-2 gap-5">
                         <div class="p-4 rounded-xl bg-gradient-to-br from-blue-500/10 to-purple-500/10 backdrop-blur-sm border border-white/10">
@@ -146,13 +242,13 @@
                 
                 <!-- 功能按钮 -->
                 <div class="flex justify-center space-x-4">
-                    <button class="vista-action-btn">
+                    <button class="vista-action-btn" id="learn-more-btn">
                         <i class="fa fa-info-circle mr-2"></i>了解更多
                     </button>
-                    <button class="vista-action-btn">
+                    <button class="vista-action-btn" id="subscribe-btn">
                         <i class="fa fa-bell mr-2"></i>订阅通知
                     </button>
-                    <button class="vista-action-btn">
+                    <button class="vista-action-btn" id="about-btn">
                         <i class="fa fa-download mr-2"></i>关于
                     </button>
                 </div>
@@ -177,7 +273,7 @@
 
     <!-- 重新打开按钮 -->
     <div id="reopen-button" class="fixed bottom-6 right-6 z-50 opacity-0 pointer-events-none transition-all duration-500 ease-out transform translate-y-5">
-        <button class="vista-aero-btn px-5 py-3 rounded-xl shadow-2xl hover:shadow-3xl transition-all duration-300 group">
+        <button class="vista-aero-btn px-5 py-3 rounded-xl shadow-2xl hover:shadow-3xl transition-all duration-300 group" id="reopen-window-btn">
             <div class="flex items-center">
                 <i class="fa fa-refresh text-white mr-3 text-lg group-hover:rotate-180 transition-transform duration-500"></i>
                 <span class="font-semibold text-white text-sm">重新打开窗口</span>
@@ -185,8 +281,231 @@
         </button>
     </div>
 
+    <!-- 模态框容器 -->
+    <div id="modal-container" class="fixed inset-0 z-50 flex items-center justify-center pointer-events-none">
+        <!-- 关于对话框 -->
+        <div id="about-modal" class="vista-modal hidden pointer-events-auto">
+            <div class="modal-header">
+                <h3 class="text-white text-lg font-semibold">
+                    <i class="fa fa-info-circle mr-2 text-blue-300"></i>关于 SpaceOS 6
+                </h3>
+                <button class="modal-close-btn" data-modal="about-modal">
+                    <i class="fa fa-times"></i>
+                </button>
+            </div>
+            <div class="modal-content">
+                <div class="flex items-center mb-4">
+                    <div class="w-12 h-12 rounded-lg bg-gradient-to-br from-blue-500 to-purple-600 flex items-center justify-center mr-4">
+                        <i class="fa fa-rocket text-white text-xl"></i>
+                    </div>
+                    <div>
+                        <h4 class="text-white text-xl font-bold">SpaceOS 6 "SmallCute"</h4>
+                        <p class="text-white/70 text-sm">版本 6.0.0</p>
+                    </div>
+                </div>
+                
+                <div class="mb-4">
+                    <h5 class="text-white font-medium mb-2">专为低性能 x64 位电脑设计</h5>
+                    <ul class="space-y-2 text-white/80 text-sm">
+                        <li class="flex items-start">
+                            <i class="fa fa-check text-green-400 mr-2 mt-0.5"></i>
+                            <span>内存占用极低：最低仅需 256MB，推荐 512MB</span>
+                        </li>
+                        <li class="flex items-start">
+                            <i class="fa fa-check text-green-400 mr-2 mt-0.5"></i>
+                            <span>CPU 要求低：支持 1GHz 及以上 x64 处理器</span>
+                        </li>
+                        <li class="flex items-start">
+                            <i class="fa fa-check text-green-400 mr-2 mt-0.5"></i>
+                            <span>存储需求小：完整安装仅需 10*M 硬盘空间</span>
+                        </li>
+                        <li class="flex items-start">
+                            <i class="fa fa-check text-green-400 mr-2 mt-0.5"></i>
+                            <span>优化图形性能：集成轻量级桌面环境</span>
+                        </li>
+                    </ul>
+                </div>
+                
+                <div class="mb-4">
+                    <h5 class="text-white font-medium mb-2">系统要求</h5>
+                    <div class="grid grid-cols-2 gap-3 text-sm">
+                        <div class="bg-white/5 p-2 rounded">
+                            <div class="text-white/60">处理器</div>
+                            <div class="text-white">x64, 1GHz 或更快</div>
+                        </div>
+                        <div class="bg-white/5 p-2 rounded">
+                            <div class="text-white/60">内存</div>
+                            <div class="text-white">256MB (最小), 512MB (推荐)</div>
+                        </div>
+                        <div class="bg-white/5 p-2 rounded">
+                            <div class="text-white/60">存储</div>
+                            <div class="text-white">4GB 可用空间</div>
+                        </div>
+                        <div class="bg-white/5 p-2 rounded">
+                            <div class="text-white/60">显卡</div>
+                            <div class="text-white">无要求（亮机卡即可）</div>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="text-center pt-4 border-t border-white/10">
+                    <p class="text-white/60 text-xs">© 2022-2026 GoutouStdio. 保留所有权利。</p>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button class="vista-action-btn" data-modal="about-modal">确定</button>
+            </div>
+        </div>
+        
+        <!-- 了解更多对话框 -->
+        <div id="learn-more-modal" class="vista-modal hidden pointer-events-auto">
+            <div class="modal-header">
+                <h3 class="text-white text-lg font-semibold">
+                    <i class="fa fa-file-text mr-2 text-blue-300"></i>SpaceOS 6 详细信息
+                </h3>
+                <button class="modal-close-btn" data-modal="learn-more-modal">
+                    <i class="fa fa-times"></i>
+                </button>
+            </div>
+            <div class="modal-content">
+                <div class="mb-4">
+                    <h4 class="text-white font-bold text-lg mb-2">SpaceOS 6 "SmallCute"</h4>
+                    <p class="text-white/80 text-sm mb-3">
+                        SpaceOS 6 是一款专为老旧或低性能 x64 位计算机设计的轻量级操作系统。
+                        它结合了现代操作系统的功能和传统硬件的兼容性，为资源有限的设备提供流畅的使用体验。
+                    </p>
+                    
+                    <h5 class="text-white font-medium mb-2 mt-4">主要特性</h5>
+                    <ul class="space-y-2 text-white/80 text-sm mb-4">
+                        <li class="flex items-start">
+                            <i class="fa fa-star text-yellow-400 mr-2 mt-0.5"></i>
+                            <span><strong>极致轻量</strong>：系统仅占用 50MB 内存，启动时间低于 15 秒</span>
+                        </li>
+                        <li class="flex items-start">
+                            <i class="fa fa-star text-yellow-400 mr-2 mt-0.5"></i>
+                            <span><strong>硬件兼容</strong>：支持 2005 年以后的 x64 位处理器</span>
+                        </li>
+                        <li class="flex items-start">
+                            <i class="fa fa-star text-yellow-400 mr-2 mt-0.5"></i>
+                            <span><strong>现代界面</strong>：基于 Vista Aero 风格的现代化桌面环境</span>
+                        </li>
+                        <li class="flex items-start">
+                            <i class="fa fa-star text-yellow-400 mr-2 mt-0.5"></i>
+                            <span><strong>软件生态</strong>：实现自研 SPF 运行框架，期待您的加入</span>
+                        </li>
+                    </ul>
+                    
+                    <h5 class="text-white font-medium mb-2">发布计划</h5>
+                    <div class="bg-gradient-to-r from-blue-900/30 to-purple-900/30 p-3 rounded-lg mb-3">
+                        <div class="flex justify-between text-white/80 text-sm mb-2">
+                            <span>Alpha 测试版</span>
+                            <span>2025年12月</span>
+                        </div>
+                        <div class="flex justify-between text-white/80 text-sm mb-2">
+                            <span>Beta 测试版</span>
+                            <span>2025年1月</span>
+                        </div>
+                        <div class="flex justify-between text-white font-medium">
+                            <span>正式发布版</span>
+                            <span class="text-blue-300">2026年5月2日</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button class="vista-action-btn" data-modal="learn-more-modal">关闭</button>
+            </div>
+        </div>
+        
+        <!-- 订阅对话框 -->
+        <div id="subscribe-modal" class="vista-modal hidden pointer-events-auto">
+            <div class="modal-header">
+                <h3 class="text-white text-lg font-semibold">
+                    <i class="fa fa-bell mr-2 text-blue-300"></i>订阅 SpaceOS 6 更新通知
+                </h3>
+                <button class="modal-close-btn" data-modal="subscribe-modal">
+                    <i class="fa fa-times"></i>
+                </button>
+            </div>
+            <div class="modal-content">
+                <div class="mb-4">
+                    <p class="text-white/80 text-sm mb-4">
+                        订阅后，您将在以下时间收到通知：
+                    </p>
+                    
+                    <div class="space-y-3 mb-5">
+                        <div class="flex items-center">
+                            <div class="w-8 h-8 rounded-full bg-blue-500/20 flex items-center justify-center mr-3">
+                                <i class="fa fa-code text-blue-300"></i>
+                            </div>
+                            <div>
+                                <div class="text-white font-medium">Alpha/Beta 测试发布</div>
+                                <div class="text-white/60 text-xs">抢先体验新功能</div>
+                            </div>
+                        </div>
+                        <div class="flex items-center">
+                            <div class="w-8 h-8 rounded-full bg-purple-500/20 flex items-center justify-center mr-3">
+                                <i class="fa fa-rocket text-purple-300"></i>
+                            </div>
+                            <div>
+                                <div class="text-white font-medium">正式版发布</div>
+                                <div class="text-white/60 text-xs">下载完整系统</div>
+                            </div>
+                        </div>
+                        <div class="flex items-center">
+                            <div class="w-8 h-8 rounded-full bg-green-500/20 flex items-center justify-center mr-3">
+                                <i class="fa fa-download text-green-300"></i>
+                            </div>
+                            <div>
+                                <div class="text-white font-medium">重要更新和安全补丁</div>
+                                <div class="text-white/60 text-xs">保持系统安全</div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="mb-4">
+                        <label class="block text-white/80 text-sm mb-2">电子邮件地址</label>
+                        <input type="email" id="email-input" class="vista-input" placeholder="your@email.com">
+                    </div>
+                    
+                    <div class="flex items-center mb-4">
+                        <input type="checkbox" id="newsletter-check" class="mr-2">
+                        <label for="newsletter-check" class="text-white/80 text-sm">同时订阅 SpaceOS 新闻通讯</label>
+                    </div>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button class="vista-action-btn secondary" data-modal="subscribe-modal">取消</button>
+                <button class="vista-action-btn" id="confirm-subscribe-btn">订阅</button>
+            </div>
+        </div>
+        
+        <!-- 消息提示框 -->
+        <div id="message-modal" class="vista-modal small hidden pointer-events-auto">
+            <div class="modal-header">
+                <h3 class="text-white text-lg font-semibold" id="message-title">提示</h3>
+                <button class="modal-close-btn" data-modal="message-modal">
+                    <i class="fa fa-times"></i>
+                </button>
+            </div>
+            <div class="modal-content">
+                <div class="flex items-center justify-center py-6">
+                    <div class="text-center">
+                        <div class="w-12 h-12 rounded-full bg-blue-500/20 flex items-center justify-center mx-auto mb-4">
+                            <i class="fa fa-info-circle text-blue-300 text-xl"></i>
+                        </div>
+                        <p class="text-white" id="message-content">操作完成</p>
+                    </div>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button class="vista-action-btn" data-modal="message-modal">确定</button>
+            </div>
+        </div>
+    </div>
+
 <style>
-/* Windows Vista Aero 效果样式 [citation:1][citation:3] */
+/* Windows Vista Aero 效果样式  */
 .vista-aero-window {
     /* 主窗口阴影 - Vista风格的厚实阴影 */
     box-shadow: 
@@ -198,7 +517,7 @@
     overflow: hidden;
 }
 
-/* Aero毛玻璃效果层 [citation:1] */
+/* Aero毛玻璃效果层  */
 .vista-aero-glass {
     position: absolute;
     inset: 0;
@@ -214,7 +533,7 @@
     z-index: -1;
 }
 
-/* 标题栏样式 [citation:3] */
+/* 标题栏样式  */
 .vista-titlebar {
     background: linear-gradient(
         to bottom,
@@ -230,7 +549,36 @@
     z-index: 10;
 }
 
-/* 窗口控制按钮 - Vista风格 [citation:3] */
+/* 菜单栏样式 */
+.vista-menubar {
+    background: linear-gradient(
+        to bottom,
+        rgba(40, 40, 60, 0.85) 0%,
+        rgba(30, 30, 50, 0.8) 100%
+    );
+    backdrop-filter: blur(10px);
+}
+
+/* 工具栏样式 */
+.vista-toolbar {
+    background: linear-gradient(
+        to bottom,
+        rgba(50, 50, 70, 0.8) 0%,
+        rgba(40, 40, 60, 0.75) 100%
+    );
+    backdrop-filter: blur(10px);
+}
+
+/* 地址栏样式 */
+.vista-addressbar {
+    background: rgba(30, 30, 40, 0.7);
+    backdrop-filter: blur(10px);
+    border-radius: 4px;
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    box-shadow: inset 0 1px 2px rgba(0, 0, 0, 0.2);
+}
+
+/* 窗口控制按钮 - Vista风格  */
 .vista-control-btn {
     width: 28px;
     height: 22px;
@@ -272,6 +620,81 @@
 .vista-control-btn:active {
     transform: translateY(0);
     box-shadow: inset 0 1px 3px rgba(0, 0, 0, 0.3);
+}
+
+/* 工具栏按钮样式 */
+.toolbar-btn {
+    display: flex;
+    align-items: center;
+    padding: 4px 10px;
+    background: linear-gradient(
+        to bottom,
+        rgba(255, 255, 255, 0.1) 0%,
+        rgba(255, 255, 255, 0.05) 100%
+    );
+    backdrop-filter: blur(5px);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    border-radius: 4px;
+    cursor: pointer;
+    transition: all 0.2s ease;
+}
+
+.toolbar-btn:hover {
+    background: linear-gradient(
+        to bottom,
+        rgba(255, 255, 255, 0.15) 0%,
+        rgba(255, 255, 255, 0.1) 100%
+    );
+    border-color: rgba(255, 255, 255, 0.2);
+    transform: translateY(-1px);
+}
+
+.toolbar-btn:active {
+    transform: translateY(0);
+    box-shadow: inset 0 1px 3px rgba(0, 0, 0, 0.2);
+}
+
+/* 菜单项样式 */
+.menu-item {
+    position: relative;
+}
+
+.menu-item:hover .menu-dropdown {
+    display: block;
+}
+
+.menu-dropdown {
+    display: none;
+    position: absolute;
+    top: 100%;
+    left: 0;
+    min-width: 160px;
+    background: rgba(40, 40, 60, 0.95);
+    backdrop-filter: blur(20px);
+    border-radius: 4px;
+    border: 1px solid rgba(255, 255, 255, 0.15);
+    box-shadow: 0 8px 30px rgba(0, 0, 0, 0.4);
+    z-index: 100;
+    padding: 5px 0;
+}
+
+.menu-option {
+    padding: 8px 15px;
+    color: rgba(255, 255, 255, 0.9);
+    font-size: 12px;
+    cursor: pointer;
+    transition: all 0.2s ease;
+}
+
+.menu-option:hover {
+    background: rgba(0, 120, 215, 0.6);
+    color: white;
+}
+
+.menu-divider {
+    height: 1px;
+    background: rgba(255, 255, 255, 0.1);
+    margin: 5px 0;
 }
 
 /* 内容区域 */
@@ -358,6 +781,14 @@
         inset 0 1px 2px rgba(0, 0, 0, 0.1);
 }
 
+.vista-action-btn.secondary {
+    background: linear-gradient(
+        to bottom,
+        rgba(255, 255, 255, 0.08) 0%,
+        rgba(255, 255, 255, 0.04) 100%
+    );
+}
+
 /* Aero风格重新打开按钮 */
 .vista-aero-btn {
     background: linear-gradient(
@@ -398,6 +829,87 @@
     box-shadow: 
         inset 0 1px 0 rgba(255, 255, 255, 0.05),
         0 -1px 3px rgba(0, 0, 0, 0.2);
+}
+
+/* 模态框样式 */
+.vista-modal {
+    width: 450px;
+    background: rgba(40, 40, 60, 0.95);
+    backdrop-filter: blur(30px) saturate(180%);
+    border-radius: 10px;
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    box-shadow: 
+        0 20px 60px rgba(0, 0, 0, 0.5),
+        inset 0 1px 0 rgba(255, 255, 255, 0.1);
+    overflow: hidden;
+}
+
+.vista-modal.small {
+    width: 350px;
+}
+
+.modal-header {
+    padding: 15px 20px;
+    background: linear-gradient(
+        to bottom,
+        rgba(10, 94, 160, 0.9) 0%,
+        rgba(0, 80, 160, 0.85) 100%
+    );
+    border-bottom: 1px solid rgba(255, 255, 255, 0.2);
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.modal-content {
+    padding: 20px;
+    max-height: 400px;
+    overflow-y: auto;
+}
+
+.modal-footer {
+    padding: 15px 20px;
+    background: rgba(30, 30, 40, 0.7);
+    border-top: 1px solid rgba(255, 255, 255, 0.1);
+    display: flex;
+    justify-content: flex-end;
+    gap: 10px;
+}
+
+.modal-close-btn {
+    width: 24px;
+    height: 24px;
+    border-radius: 4px;
+    background: rgba(255, 255, 255, 0.1);
+    border: none;
+    color: white;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    transition: all 0.2s ease;
+}
+
+.modal-close-btn:hover {
+    background: rgba(232, 17, 35, 0.8);
+}
+
+/* 输入框样式 */
+.vista-input {
+    width: 100%;
+    padding: 10px 15px;
+    background: rgba(30, 30, 40, 0.7);
+    border: 1px solid rgba(255, 255, 255, 0.15);
+    border-radius: 6px;
+    color: white;
+    font-size: 13px;
+    transition: all 0.2s ease;
+}
+
+.vista-input:focus {
+    outline: none;
+    border-color: rgba(0, 120, 215, 0.8);
+    box-shadow: 0 0 0 2px rgba(0, 120, 215, 0.3);
 }
 
 /* 数字动画 */
@@ -449,6 +961,10 @@
     .countdown-digit {
         font-size: 2rem !important;
     }
+    
+    .vista-modal {
+        width: 90vw !important;
+    }
 }
 </style>
 
@@ -473,18 +989,35 @@
         minimizeBtn: document.getElementById('minimize-btn'),
         maximizeBtn: document.getElementById('maximize-btn'),
         reopenButton: document.getElementById('reopen-button'),
+        reopenWindowBtn: document.getElementById('reopen-window-btn'),
         resizeHandle: document.getElementById('resize-handle'),
-        appBody: document.getElementById('app-body')
+        appBody: document.getElementById('app-body'),
+        backBtn: document.getElementById('back-btn'),
+        forwardBtn: document.getElementById('forward-btn'),
+        homeBtn: document.getElementById('home-btn'),
+        printBtn: document.getElementById('print-btn'),
+        learnMoreBtn: document.getElementById('learn-more-btn'),
+        subscribeBtn: document.getElementById('subscribe-btn'),
+        aboutBtn: document.getElementById('about-btn'),
+        confirmSubscribeBtn: document.getElementById('confirm-subscribe-btn'),
+        emailInput: document.getElementById('email-input'),
+        aboutModal: document.getElementById('about-modal'),
+        learnMoreModal: document.getElementById('learn-more-modal'),
+        subscribeModal: document.getElementById('subscribe-modal'),
+        messageModal: document.getElementById('message-modal'),
+        messageTitle: document.getElementById('message-title'),
+        messageContent: document.getElementById('message-content')
     };
     
     // 状态管理
     let state = {
         isDragging: false,
         isResizing: false,
+        isMaximized: false, // 修复：添加最大化状态跟踪
         dragOffset: { x: 0, y: 0 },
         resizeStart: { x: 0, y: 0, width: 0, height: 0 },
         windowPosition: { x: 0, y: 0 },
-        windowSize: { width: 500, height: 580 },
+        windowSize: { width: 500, height: 600 },
         windowClosed: false,
         animationFrameId: null,
         countdownInterval: null,
@@ -494,7 +1027,8 @@
             hours: '00',
             minutes: '00',
             seconds: '00'
-        }
+        },
+        originalWindowState: null // 保存原始窗口状态用于恢复
     };
     
     // 初始化函数
@@ -532,7 +1066,7 @@
         
         // 应用位置和尺寸
         elements.mainWindow.style.width = `${state.windowSize.width}px`;
-        elements.mainWindow.style.height = `${state.windowSize.height}px`;
+        elements.mainWindow.style.minHeight = `${state.windowSize.height}px`;
         elements.mainWindow.style.left = `${state.windowPosition.x}px`;
         elements.mainWindow.style.top = `${state.windowPosition.y}px`;
     }
@@ -561,7 +1095,7 @@
         
         // 应用修正
         elements.mainWindow.style.width = `${state.windowSize.width}px`;
-        elements.mainWindow.style.height = `${state.windowSize.height}px`;
+        elements.mainWindow.style.minHeight = `${state.windowSize.height}px`;
         elements.mainWindow.style.left = `${state.windowPosition.x}px`;
         elements.mainWindow.style.top = `${state.windowPosition.y}px`;
     }
@@ -642,6 +1176,43 @@
         setTimeout(() => {
             element.style.transform = 'scale(1)';
         }, 200);
+    }
+    
+    // 显示模态框
+    function showModal(modalId) {
+        // 隐藏所有模态框
+        document.querySelectorAll('.vista-modal').forEach(modal => {
+            modal.classList.add('hidden');
+        });
+        
+        // 显示指定的模态框
+        const modal = document.getElementById(modalId);
+        if (modal) {
+            modal.classList.remove('hidden');
+            // 显示模态框容器
+            document.getElementById('modal-container').style.pointerEvents = 'auto';
+        }
+    }
+    
+    // 隐藏模态框
+    function hideModal(modalId) {
+        const modal = document.getElementById(modalId);
+        if (modal) {
+            modal.classList.add('hidden');
+        }
+        
+        // 如果所有模态框都隐藏了，隐藏容器
+        const visibleModals = document.querySelectorAll('.vista-modal:not(.hidden)');
+        if (visibleModals.length === 0) {
+            document.getElementById('modal-container').style.pointerEvents = 'none';
+        }
+    }
+    
+    // 显示消息提示
+    function showMessage(title, content) {
+        elements.messageTitle.textContent = title;
+        elements.messageContent.textContent = content;
+        showModal('message-modal');
     }
     
     // 窗口拖拽逻辑
@@ -732,7 +1303,7 @@
         
         state.animationFrameId = requestAnimationFrame(() => {
             elements.mainWindow.style.width = `${state.windowSize.width}px`;
-            elements.mainWindow.style.height = `${state.windowSize.height}px`;
+            elements.mainWindow.style.minHeight = `${state.windowSize.height}px`;
         });
         
         e.preventDefault();
@@ -754,6 +1325,54 @@
         }
     }
     
+    // 修复：窗口最大化/还原功能
+    function maximizeWindow() {
+        if (state.isMaximized) {
+            // 还原窗口
+            state.windowSize.width = state.originalWindowState.width;
+            state.windowSize.height = state.originalWindowState.height;
+            state.windowPosition.x = state.originalWindowState.x;
+            state.windowPosition.y = state.originalWindowState.y;
+            
+            elements.mainWindow.style.width = `${state.windowSize.width}px`;
+            elements.mainWindow.style.minHeight = `${state.windowSize.height}px`;
+            elements.mainWindow.style.left = `${state.windowPosition.x}px`;
+            elements.mainWindow.style.top = `${state.windowPosition.y}px`;
+            elements.mainWindow.style.borderRadius = '8px';
+            
+            elements.maximizeBtn.innerHTML = '<i class="fa fa-square-o"></i>';
+            elements.maximizeBtn.title = '最大化';
+            state.isMaximized = false;
+        } else {
+            // 保存原始状态
+            state.originalWindowState = {
+                width: state.windowSize.width,
+                height: state.windowSize.height,
+                x: state.windowPosition.x,
+                y: state.windowPosition.y
+            };
+            
+            // 最大化窗口
+            state.windowSize.width = window.innerWidth - 10;
+            state.windowSize.height = window.innerHeight - 10;
+            state.windowPosition.x = 5;
+            state.windowPosition.y = 5;
+            
+            elements.mainWindow.style.width = `${state.windowSize.width}px`;
+            elements.mainWindow.style.minHeight = `${state.windowSize.height}px`;
+            elements.mainWindow.style.left = `${state.windowPosition.x}px`;
+            elements.mainWindow.style.top = `${state.windowPosition.y}px`;
+            elements.mainWindow.style.borderRadius = '0';
+            
+            elements.maximizeBtn.innerHTML = '<i class="fa fa-window-restore"></i>';
+            elements.maximizeBtn.title = '还原';
+            state.isMaximized = true;
+        }
+        
+        // 更新窗口内容区域高度
+        elements.mainWindow.style.transition = 'all 0.3s ease-out';
+    }
+    
     // 窗口控制功能
     function closeWindow() {
         if (state.windowClosed) return;
@@ -771,35 +1390,11 @@
     
     function minimizeWindow() {
         elements.mainWindow.style.opacity = '0.7';
-        elements.mainWindow.style.transform = 'scale(0.98)';
+        elements.mainWindow.style.transform = 'scale(0.98) translateY(20px)';
         setTimeout(() => {
             elements.mainWindow.style.opacity = '1';
             elements.mainWindow.style.transform = 'scale(1)';
         }, 300);
-    }
-    
-    function maximizeWindow() {
-        const isMaximized = elements.mainWindow.style.width === 'calc(100vw - 40px)';
-        
-        if (isMaximized) {
-            // 恢复原始大小
-            state.windowSize = { width: 500, height: 580 };
-            centerWindow();
-            elements.maximizeBtn.innerHTML = '<i class="fa fa-square-o"></i>';
-        } else {
-            // 最大化
-            state.windowSize = { 
-                width: window.innerWidth - 40, 
-                height: window.innerHeight - 40 
-            };
-            state.windowPosition = { x: 20, y: 20 };
-            
-            elements.mainWindow.style.width = `${state.windowSize.width}px`;
-            elements.mainWindow.style.height = `${state.windowSize.height}px`;
-            elements.mainWindow.style.left = `${state.windowPosition.x}px`;
-            elements.mainWindow.style.top = `${state.windowPosition.y}px`;
-            elements.maximizeBtn.innerHTML = '<i class="fa fa-window-restore"></i>';
-        }
     }
     
     // 重新打开窗口 - 修复溢出问题
@@ -816,6 +1411,174 @@
         elements.mainWindow.style.opacity = '1';
         elements.mainWindow.style.transform = 'scale(1)';
         state.windowClosed = false;
+    }
+    
+    // 菜单功能实现
+    function setupMenuFunctions() {
+        // 文件菜单
+        document.querySelectorAll('[data-menu="file"] .menu-option').forEach(option => {
+            option.addEventListener('click', function() {
+                const action = this.getAttribute('data-action');
+                switch(action) {
+                    case 'new':
+                        showMessage('新建窗口', '创建新窗口功能在当前版本中不可用。');
+                        break;
+                    case 'open':
+                        showMessage('打开', '打开文件功能在当前版本中不可用。');
+                        break;
+                    case 'save':
+                        showMessage('保存设置', '设置已保存到本地存储。');
+                        // 实际应用中这里可以保存设置到localStorage
+                        break;
+                    case 'export':
+                        showMessage('导出数据', '倒计时数据导出功能将在正式版中提供。');
+                        break;
+                    case 'exit':
+                        closeWindow();
+                        break;
+                }
+                // 隐藏下拉菜单
+                document.getElementById('file-menu').style.display = 'none';
+            });
+        });
+        
+        // 编辑菜单
+        document.querySelectorAll('[data-menu="edit"] .menu-option').forEach(option => {
+            option.addEventListener('click', function() {
+                const action = this.getAttribute('data-action');
+                switch(action) {
+                    case 'undo':
+                    case 'redo':
+                    case 'cut':
+                    case 'copy':
+                    case 'paste':
+                        showMessage('编辑操作', `${this.textContent}功能在当前上下文中不可用。`);
+                        break;
+                }
+                document.getElementById('edit-menu').style.display = 'none';
+            });
+        });
+        
+        // 查看菜单
+        document.querySelectorAll('[data-menu="view"] .menu-option').forEach(option => {
+            option.addEventListener('click', function() {
+                const action = this.getAttribute('data-action');
+                switch(action) {
+                    case 'refresh':
+                        updateCountdown();
+                        updateCurrentTime();
+                        showMessage('刷新', '内容已刷新。');
+                        break;
+                    case 'zoom-in':
+                    case 'zoom-out':
+                        showMessage('缩放', '缩放功能在当前版本中不可用。');
+                        break;
+                    case 'fullscreen':
+                        if (!document.fullscreenElement) {
+                            document.documentElement.requestFullscreen();
+                        } else {
+                            document.exitFullscreen();
+                        }
+                        break;
+                }
+                document.getElementById('view-menu').style.display = 'none';
+            });
+        });
+        
+        // 工具菜单
+        document.querySelectorAll('[data-menu="tools"] .menu-option').forEach(option => {
+            option.addEventListener('click', function() {
+                const action = this.getAttribute('data-action');
+                switch(action) {
+                    case 'settings':
+                        showMessage('系统设置', '系统设置对话框将在正式版中提供。');
+                        break;
+                    case 'update':
+                        showMessage('检查更新', '当前已是最新版本。');
+                        break;
+                    case 'diagnostics':
+                        showMessage('系统诊断', '系统诊断工具将在正式版中提供。');
+                        break;
+                    case 'performance':
+                        showMessage('性能优化', 'SpaceOS 6 已针对低性能 x64 位电脑优化。');
+                        break;
+                }
+                document.getElementById('tools-menu').style.display = 'none';
+            });
+        });
+        
+        // 帮助菜单
+        document.querySelectorAll('[data-menu="help"] .menu-option').forEach(option => {
+            option.addEventListener('click', function() {
+                const action = this.getAttribute('data-action');
+                switch(action) {
+                    case 'help-content':
+                        showMessage('帮助主题', '帮助文档将在正式版中提供。');
+                        break;
+                    case 'about':
+                        showModal('about-modal');
+                        break;
+                    case 'feedback':
+                        showMessage('发送反馈', '反馈功能将在正式版中提供。');
+                        break;
+                }
+                document.getElementById('help-menu').style.display = 'none';
+            });
+        });
+    }
+    
+    // 工具栏功能实现
+    function setupToolbarFunctions() {
+        // 后退按钮
+        elements.backBtn.addEventListener('click', () => {
+            showMessage('后退', '后退功能在当前上下文中不可用。');
+        });
+        
+        // 前进按钮
+        elements.forwardBtn.addEventListener('click', () => {
+            showMessage('前进', '前进功能在当前上下文中不可用。');
+        });
+        
+        // 主页按钮
+        elements.homeBtn.addEventListener('click', () => {
+            // 模拟回到主页
+            showMessage('主页', '已回到 SpaceOS 6 主页。');
+        });
+        
+        // 打印按钮
+        elements.printBtn.addEventListener('click', () => {
+            showMessage('打印', '打印功能在当前版本中不可用。');
+        });
+    }
+    
+    // 功能按钮实现
+    function setupActionButtons() {
+        // 了解更多按钮
+        elements.learnMoreBtn.addEventListener('click', () => {
+            showModal('learn-more-modal');
+        });
+        
+        // 订阅通知按钮
+        elements.subscribeBtn.addEventListener('click', () => {
+            showModal('subscribe-modal');
+        });
+        
+        // 关于按钮
+        elements.aboutBtn.addEventListener('click', () => {
+            showModal('about-modal');
+        });
+        
+        // 确认订阅按钮
+        elements.confirmSubscribeBtn.addEventListener('click', () => {
+            const email = elements.emailInput.value;
+            if (email && email.includes('@')) {
+                showMessage('订阅成功', `已成功订阅 SpaceOS 6 更新通知。确认邮件已发送至 ${email}`);
+                elements.emailInput.value = '';
+                hideModal('subscribe-modal');
+            } else {
+                showMessage('订阅失败', '请输入有效的电子邮件地址。');
+            }
+        });
     }
     
     // 设置事件监听器
@@ -855,7 +1618,32 @@
         elements.closeBtn.addEventListener('click', closeWindow);
         elements.minimizeBtn.addEventListener('click', minimizeWindow);
         elements.maximizeBtn.addEventListener('click', maximizeWindow);
-        elements.reopenButton.addEventListener('click', reopenWindow);
+        elements.reopenWindowBtn.addEventListener('click', reopenWindow);
+        
+        // 设置菜单功能
+        setupMenuFunctions();
+        
+        // 设置工具栏功能
+        setupToolbarFunctions();
+        
+        // 设置功能按钮
+        setupActionButtons();
+        
+        // 模态框关闭按钮
+        document.querySelectorAll('.modal-close-btn').forEach(btn => {
+            btn.addEventListener('click', function() {
+                const modalId = this.getAttribute('data-modal');
+                hideModal(modalId);
+            });
+        });
+        
+        // 模态框确定按钮
+        document.querySelectorAll('.vista-action-btn[data-modal]').forEach(btn => {
+            btn.addEventListener('click', function() {
+                const modalId = this.getAttribute('data-modal');
+                hideModal(modalId);
+            });
+        });
         
         // 键盘快捷键
         document.addEventListener('keydown', (e) => {
@@ -866,8 +1654,21 @@
             }
             
             if (e.key === 'Escape') {
-                if (!state.windowClosed) closeWindow();
-                else reopenWindow();
+                if (!state.windowClosed) {
+                    // 隐藏所有模态框
+                    document.querySelectorAll('.vista-modal').forEach(modal => {
+                        modal.classList.add('hidden');
+                    });
+                    document.getElementById('modal-container').style.pointerEvents = 'none';
+                } else {
+                    reopenWindow();
+                }
+            }
+            
+            // Alt+F4 关闭窗口
+            if (e.altKey && e.key === 'F4') {
+                closeWindow();
+                e.preventDefault();
             }
             
             // 双击标题栏最大化/还原
@@ -884,13 +1685,28 @@
         window.addEventListener('resize', () => {
             clearTimeout(resizeTimeout);
             resizeTimeout = setTimeout(() => {
-                ensureWindowInBounds();
+                if (!state.isMaximized) {
+                    ensureWindowInBounds();
+                } else {
+                    // 如果窗口是最大化的，调整大小以适应新窗口尺寸
+                    maximizeWindow();
+                }
             }, 100);
         });
         
         // Vista风格的窗口激活效果
         elements.mainWindow.addEventListener('mousedown', () => {
             elements.mainWindow.style.zIndex = '40';
+        });
+        
+        // 点击模态框外部关闭模态框
+        document.getElementById('modal-container').addEventListener('click', (e) => {
+            if (e.target.id === 'modal-container') {
+                document.querySelectorAll('.vista-modal').forEach(modal => {
+                    modal.classList.add('hidden');
+                });
+                document.getElementById('modal-container').style.pointerEvents = 'none';
+            }
         });
     }
     
