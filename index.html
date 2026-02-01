@@ -116,8 +116,8 @@
             }
             
             .vista-control {
-                width: 42px;
-                height: 22px;
+                width: 38px;
+                height: 20px;
                 border-radius: 4px;
                 margin: 0 2px;
                 display: flex;
@@ -357,12 +357,12 @@
         
         /* 状态指示器 */
         .status-indicator {
-            width: 10px;
-            height: 10px;
+            width: 8px;
+            height: 8px;
             border-radius: 50%;
             margin-right: 8px;
             display: inline-block;
-            box-shadow: 0 0 10px rgba(6, 214, 160, 0.5);
+            box-shadow: 0 0 8px rgba(6, 214, 160, 0.5);
             animation: pulse 2s infinite;
         }
         
@@ -373,8 +373,8 @@
         /* 重新打开按钮 */
         .reopen-button {
             position: fixed;
-            bottom: 30px;
-            right: 30px;
+            bottom: 20px;
+            right: 20px;
             z-index: 500;
             opacity: 0;
             pointer-events: none;
@@ -391,29 +391,44 @@
         /* 优化响应式排版 */
         @media (max-width: 640px) {
             .countdown-digit {
-                font-size: 2.5rem !important;
+                font-size: 2rem !important;
+            }
+            
+            .window-frame {
+                width: 90% !important;
+                max-width: 90% !important;
+            }
+            
+            .vista-glass {
+                padding: 1rem !important;
+            }
+            
+            .reopen-button {
+                bottom: 15px;
+                right: 15px;
+            }
+            
+            .reopen-button button {
+                padding: 0.75rem !important;
+                font-size: 0.875rem !important;
+            }
+        }
+        
+        @media (max-width: 480px) {
+            .countdown-digit {
+                font-size: 1.75rem !important;
             }
             
             .window-frame {
                 width: 95% !important;
                 max-width: 95% !important;
-                margin: 10px;
-            }
-            
-            .vista-glass {
-                padding: 1.5rem !important;
-            }
-            
-            .reopen-button {
-                bottom: 20px;
-                right: 20px;
             }
         }
         
         @media (max-width: 768px) {
             .countdown-grid {
                 grid-template-columns: repeat(2, 1fr) !important;
-                gap: 1rem !important;
+                gap: 0.75rem !important;
             }
         }
     </style>
@@ -430,153 +445,153 @@
     
     <!-- 重新打开按钮（初始隐藏） -->
     <div id="reopen-button" class="reopen-button">
-        <button class="vista-glass rounded-full p-4 shadow-vista hover:shadow-lg transition-all duration-300 group">
+        <button class="vista-glass rounded-full px-4 py-3 shadow-vista hover:shadow-lg transition-all duration-300 group non-draggable">
             <div class="flex items-center">
-                <i class="fa fa-refresh text-vistaBlue text-xl mr-2 group-hover:animate-spin"></i>
-                <span class="font-medium text-gray-700">重新打开倒计时</span>
+                <i class="fa fa-refresh text-vistaBlue text-lg mr-2 group-hover:animate-spin"></i>
+                <span class="font-medium text-gray-700 text-sm">重新打开</span>
             </div>
         </button>
     </div>
     
-    <!-- 主窗口 -->
-    <div id="main-window" class="window-frame vista-glass rounded-xl w-full max-w-4xl shadow-vista overflow-hidden">
-        <div class="vista-titlebar px-4 py-3 flex items-center justify-between draggable" id="window-titlebar">
+    <!-- 主窗口 - 减小了尺寸 -->
+    <div id="main-window" class="window-frame vista-glass rounded-xl w-11/12 max-w-2xl shadow-vista overflow-hidden">
+        <div class="vista-titlebar px-3 py-2 flex items-center justify-between draggable" id="window-titlebar">
             <div class="flex items-center">
                 <span class="status-indicator status-online"></span>
-                <h2 class="text-lg font-medium text-gray-700">SpaceOS 6 发布倒计时</h2>
+                <h2 class="text-base font-medium text-gray-700">SpaceOS 6 倒计时</h2>
             </div>
             
             <div class="flex items-center non-draggable">
                 <div class="vista-control vista-control-close" id="close-btn">
-                    <i class="fa fa-times"></i>
+                    <i class="fa fa-times text-xs"></i>
                 </div>
             </div>
         </div>
         
-        <div class="p-6 md:p-8 bg-glassBg/40">
+        <div class="p-4 md:p-5 bg-glassBg/40">
             <div class="flex flex-col items-center">
-                <!-- 标题区域 -->
-                <div class="vista-glass-dark rounded-full px-8 py-4 mb-8 shadow-vista-inner animate-fade-in">
-                    <h1 class="text-2xl md:text-3xl text-vistaBlue tracking-wider text-center text-glow">
-                        <i class="fa fa-rocket mr-3 animate-pulse"></i>SpaceOS 6 即将发布
+                <!-- 标题区域 - 减小了尺寸 -->
+                <div class="vista-glass-dark rounded-full px-6 py-2 mb-4 shadow-vista-inner animate-fade-in">
+                    <h1 class="text-xl md:text-2xl text-vistaBlue tracking-wider text-center text-glow">
+                        <i class="fa fa-rocket mr-2 animate-pulse"></i>SpaceOS 6 即将发布
                     </h1>
                 </div>
                 
-                <!-- 系统信息 -->
-                <div class="vista-glass-dark rounded-xl p-5 mb-8 w-full shadow-vista-inner animate-fade-in" style="animation-delay: 0.1s">
-                    <div class="grid grid-cols-2 md:grid-cols-4 gap-4 text-sm">
-                        <div class="text-center p-2 rounded-lg bg-white/20">
-                            <div class="text-gray-600 mb-1">版本</div>
-                            <div class="font-bold text-vistaBlue text-lg">6.0.0</div>
+                <!-- 系统信息 - 减小了尺寸 -->
+                <div class="vista-glass-dark rounded-lg p-3 mb-4 w-full shadow-vista-inner animate-fade-in" style="animation-delay: 0.1s">
+                    <div class="grid grid-cols-2 md:grid-cols-4 gap-2 text-xs">
+                        <div class="text-center p-2 rounded bg-white/20">
+                            <div class="text-gray-600 mb-1 text-xs">版本</div>
+                            <div class="font-bold text-vistaBlue text-sm">6.0.0</div>
                         </div>
-                        <div class="text-center p-2 rounded-lg bg-white/20">
-                            <div class="text-gray-600 mb-1">代号</div>
-                            <div class="font-bold text-vistaBlue text-lg">SmallCute</div>
+                        <div class="text-center p-2 rounded bg-white/20">
+                            <div class="text-gray-600 mb-1 text-xs">代号</div>
+                            <div class="font-bold text-vistaBlue text-sm">SmallCute</div>
                         </div>
-                        <div class="text-center p-2 rounded-lg bg-white/20">
-                            <div class="text-gray-600 mb-1">架构</div>
-                            <div class="font-bold text-vistaBlue text-lg">64位</div>
+                        <div class="text-center p-2 rounded bg-white/20">
+                            <div class="text-gray-600 mb-1 text-xs">架构</div>
+                            <div class="font-bold text-vistaBlue text-sm">64位</div>
                         </div>
-                        <div class="text-center p-2 rounded-lg bg-white/20">
-                            <div class="text-gray-600 mb-1">状态</div>
-                            <div class="font-bold text-green-500 text-lg">开发中</div>
+                        <div class="text-center p-2 rounded bg-white/20">
+                            <div class="text-gray-600 mb-1 text-xs">状态</div>
+                            <div class="font-bold text-green-500 text-sm">开发中</div>
                         </div>
                     </div>
                 </div>
                 
-                <!-- 倒计时区域 -->
-                <div class="mb-10 text-center animate-fade-in" style="animation-delay: 0.2s">
-                    <h3 class="text-xl md:text-2xl font-light mb-3 text-vistaBlue text-glow">
-                        <i class="fa fa-clock-o mr-2"></i>距离发布还有
+                <!-- 倒计时区域 - 减小了尺寸 -->
+                <div class="mb-6 text-center animate-fade-in" style="animation-delay: 0.2s">
+                    <h3 class="text-lg md:text-xl font-light mb-2 text-vistaBlue text-glow">
+                        <i class="fa fa-clock-o mr-1"></i>距离发布还有
                     </h3>
-                    <p class="text-gray-600 mb-8">全新体验，即将启程</p>
+                    <p class="text-gray-600 text-sm mb-4">全新体验，即将启程</p>
                     
-                    <div class="grid grid-cols-2 md:grid-cols-4 gap-5 md:gap-8 w-full countdown-grid">
+                    <div class="grid grid-cols-2 md:grid-cols-4 gap-3 md:gap-4 w-full countdown-grid">
                         <div class="flex flex-col items-center countdown-card">
-                            <div class="vista-glass-dark rounded-xl p-5 md:p-6 mb-3 shadow-vista-inner w-full hover:shadow-lg transition-all duration-300">
-                                <div class="countdown-digit text-4xl md:text-7xl font-bold text-vistaBlue" id="days">00</div>
+                            <div class="vista-glass-dark rounded-lg p-3 md:p-4 mb-2 shadow-vista-inner w-full hover:shadow-lg transition-all duration-300">
+                                <div class="countdown-digit text-3xl md:text-5xl font-bold text-vistaBlue" id="days">00</div>
                             </div>
-                            <div class="text-sm md:text-base uppercase tracking-wider text-gray-600 font-medium">天</div>
+                            <div class="text-xs md:text-sm uppercase tracking-wider text-gray-600 font-medium">天</div>
                         </div>
                         
                         <div class="flex flex-col items-center countdown-card">
-                            <div class="vista-glass-dark rounded-xl p-5 md:p-6 mb-3 shadow-vista-inner w-full hover:shadow-lg transition-all duration-300">
-                                <div class="countdown-digit text-4xl md:text-7xl font-bold text-vistaBlue" id="hours">00</div>
+                            <div class="vista-glass-dark rounded-lg p-3 md:p-4 mb-2 shadow-vista-inner w-full hover:shadow-lg transition-all duration-300">
+                                <div class="countdown-digit text-3xl md:text-5xl font-bold text-vistaBlue" id="hours">00</div>
                             </div>
-                            <div class="text-sm md:text-base uppercase tracking-wider text-gray-600 font-medium">时</div>
+                            <div class="text-xs md:text-sm uppercase tracking-wider text-gray-600 font-medium">时</div>
                         </div>
                         
                         <div class="flex flex-col items-center countdown-card">
-                            <div class="vista-glass-dark rounded-xl p-5 md:p-6 mb-3 shadow-vista-inner w-full hover:shadow-lg transition-all duration-300">
-                                <div class="countdown-digit text-4xl md:text-7xl font-bold text-vistaBlue" id="minutes">00</div>
+                            <div class="vista-glass-dark rounded-lg p-3 md:p-4 mb-2 shadow-vista-inner w-full hover:shadow-lg transition-all duration-300">
+                                <div class="countdown-digit text-3xl md:text-5xl font-bold text-vistaBlue" id="minutes">00</div>
                             </div>
-                            <div class="text-sm md:text-base uppercase tracking-wider text-gray-600 font-medium">分</div>
+                            <div class="text-xs md:text-sm uppercase tracking-wider text-gray-600 font-medium">分</div>
                         </div>
                         
                         <div class="flex flex-col items-center countdown-card">
-                            <div class="vista-glass-dark rounded-xl p-5 md:p-6 mb-3 shadow-vista-inner w-full hover:shadow-lg transition-all duration-300">
-                                <div class="countdown-digit text-4xl md:text-7xl font-bold text-vistaBlue" id="seconds">00</div>
+                            <div class="vista-glass-dark rounded-lg p-3 md:p-4 mb-2 shadow-vista-inner w-full hover:shadow-lg transition-all duration-300">
+                                <div class="countdown-digit text-3xl md:text-5xl font-bold text-vistaBlue" id="seconds">00</div>
                             </div>
-                            <div class="text-sm md:text-base uppercase tracking-wider text-gray-600 font-medium">秒</div>
+                            <div class="text-xs md:text-sm uppercase tracking-wider text-gray-600 font-medium">秒</div>
                         </div>
                     </div>
                 </div>
                 
-                <!-- 发布时间和访问统计 -->
-                <div class="vista-glass-dark rounded-xl p-6 w-full shadow-vista-inner animate-fade-in" style="animation-delay: 0.3s">
-                    <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
-                        <div class="text-center md:text-left p-4 rounded-lg bg-white/10">
-                            <h4 class="font-medium text-gray-700 mb-3 flex items-center">
-                                <i class="fa fa-calendar mr-3 text-vistaBlue text-lg"></i>发布时间
+                <!-- 发布时间和访问统计 - 减小了尺寸 -->
+                <div class="vista-glass-dark rounded-lg p-4 w-full shadow-vista-inner animate-fade-in" style="animation-delay: 0.3s">
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                        <div class="text-center md:text-left p-3 rounded bg-white/10">
+                            <h4 class="font-medium text-gray-700 mb-2 flex items-center text-sm">
+                                <i class="fa fa-calendar mr-2 text-vistaBlue"></i>发布时间
                             </h4>
-                            <p class="text-xl font-bold text-vistaBlue mb-1">2026年5月2日 16:00</p>
-                            <p class="text-sm text-gray-600">北京时间 (UTC+8)</p>
+                            <p class="text-base font-bold text-vistaBlue mb-1">2026年5月2日 16:00</p>
+                            <p class="text-xs text-gray-600">北京时间 (UTC+8)</p>
                         </div>
                         
-                        <div class="text-center md:text-right p-4 rounded-lg bg-white/10">
-                            <h4 class="font-medium text-gray-700 mb-3 flex items-center justify-end">
-                                <i class="fa fa-eye mr-3 text-vistaBlue text-lg"></i>访问统计
+                        <div class="text-center md:text-right p-3 rounded bg-white/10">
+                            <h4 class="font-medium text-gray-700 mb-2 flex items-center justify-end text-sm">
+                                <i class="fa fa-eye mr-2 text-vistaBlue"></i>访问统计
                             </h4>
-                            <p class="text-xl font-bold text-vistaBlue mb-1">
+                            <p class="text-base font-bold text-vistaBlue mb-1">
                                 总访问: <span id="busuanzi_value_site_pv" class="animate-bounce-soft">0</span> 次
                             </p>
-                            <p class="text-sm text-gray-600">实时更新</p>
+                            <p class="text-xs text-gray-600">实时更新</p>
                         </div>
                     </div>
                 </div>
                 
-                <!-- 功能按钮 -->
-                <div class="flex flex-wrap justify-center gap-4 mt-8 animate-fade-in" style="animation-delay: 0.4s">
-                    <button class="vista-button px-6 py-3 text-sm font-medium text-gray-700 non-draggable">
-                        <i class="fa fa-info-circle mr-2"></i>了解更多
+                <!-- 功能按钮 - 减小了尺寸 -->
+                <div class="flex flex-wrap justify-center gap-2 mt-5 animate-fade-in" style="animation-delay: 0.4s">
+                    <button class="vista-button px-4 py-2 text-xs font-medium text-gray-700 non-draggable">
+                        <i class="fa fa-info-circle mr-1"></i>了解更多
                     </button>
-                    <button class="vista-button px-6 py-3 text-sm font-medium text-gray-700 non-draggable">
-                        <i class="fa fa-bell mr-2"></i>订阅通知
+                    <button class="vista-button px-4 py-2 text-xs font-medium text-gray-700 non-draggable">
+                        <i class="fa fa-bell mr-1"></i>订阅通知
                     </button>
-                    <button class="vista-button px-6 py-3 text-sm font-medium text-gray-700 non-draggable">
-                        <i class="fa fa-download mr-2"></i>关于
+                    <button class="vista-button px-4 py-2 text-xs font-medium text-gray-700 non-draggable">
+                        <i class="fa fa-download mr-1"></i>关于
                     </button>
                 </div>
             </div>
         </div>
         
-        <!-- 窗口状态栏 -->
-        <div class="vista-titlebar px-4 py-2 flex items-center justify-between text-xs text-gray-600 border-t border-vistaBorder/30">
+        <!-- 窗口状态栏 - 减小了尺寸 -->
+        <div class="vista-titlebar px-3 py-1 flex items-center justify-between text-xs text-gray-600 border-t border-vistaBorder/30">
             <div class="flex items-center">
-                <i class="fa fa-cog mr-2 text-vistaBlue"></i>
-                <span>SpaceOS 6 倒计时系统</span>
+                <i class="fa fa-cog mr-1 text-vistaBlue text-xs"></i>
+                <span class="text-xs">SpaceOS 6 倒计时系统</span>
             </div>
             <div class="flex items-center">
-                <span class="mr-4">GoutouStdio © 2022-2026</span>
-                <span id="current-time" class="font-medium">00:00:00</span>
+                <span class="mr-3 text-xs">GoutouStdio © 2022-2026</span>
+                <span id="current-time" class="font-medium text-xs">00:00:00</span>
             </div>
         </div>
     </div>
 
     <!-- 任务栏提示 -->
-    <div id="taskbar-hint" class="fixed bottom-6 left-1/2 transform -translate-x-1/2 z-50 vista-glass-dark rounded-full px-5 py-3 text-sm text-gray-600 shadow-sm flex items-center animate-fade-in">
-        <i class="fa fa-arrows mr-3 text-vistaBlue"></i>
-        <span>拖动标题栏移动窗口 | 点击右上角按钮关闭窗口</span>
+    <div id="taskbar-hint" class="fixed bottom-4 left-1/2 transform -translate-x-1/2 z-50 vista-glass-dark rounded-full px-4 py-2 text-xs text-gray-600 shadow-sm flex items-center animate-fade-in max-w-xs text-center">
+        <i class="fa fa-arrows mr-2 text-vistaBlue"></i>
+        <span>拖动标题栏移动窗口 | 点击右上角按钮关闭</span>
     </div>
 
     <script>
@@ -605,30 +620,50 @@
             let dragOffset = { x: 0, y: 0 };
             let windowPosition = { x: 0, y: 0 };
             let windowClosed = false;
+            let originalWindowPosition = { x: 0, y: 0 };
             
-            // 非线性动画缓动函数
-            const easingFunctions = {
-                easeOutBack: (t) => {
-                    const c1 = 1.70158;
-                    const c3 = c1 + 1;
-                    return 1 + c3 * Math.pow(t - 1, 3) + c1 * Math.pow(t - 1, 2);
-                },
-                easeInOutCubic: (t) => {
-                    return t < 0.5 
-                        ? 4 * t * t * t 
-                        : 1 - Math.pow(-2 * t + 2, 3) / 2;
-                },
-                easeOutElastic: (t) => {
-                    const c4 = (2 * Math.PI) / 3;
-                    return t === 0 ? 0 : t === 1 ? 1 : Math.pow(2, -10 * t) * Math.sin((t * 10 - 0.75) * c4) + 1;
-                }
-            };
-            
-            // 初始化窗口位置
+            // 初始化窗口位置（确保在屏幕中心）
             function initWindowPosition() {
                 const rect = mainWindow.getBoundingClientRect();
-                windowPosition.x = rect.left;
-                windowPosition.y = rect.top;
+                const windowWidth = rect.width;
+                const windowHeight = rect.height;
+                
+                // 计算中心位置
+                const centerX = (window.innerWidth - windowWidth) / 2;
+                const centerY = (window.innerHeight - windowHeight) / 2;
+                
+                // 确保窗口在屏幕内
+                const maxX = window.innerWidth - windowWidth;
+                const maxY = window.innerHeight - windowHeight;
+                
+                windowPosition.x = Math.max(0, Math.min(centerX, maxX));
+                windowPosition.y = Math.max(0, Math.min(centerY, maxY));
+                
+                // 保存原始位置
+                originalWindowPosition = { ...windowPosition };
+                
+                // 应用位置
+                mainWindow.style.left = `${windowPosition.x}px`;
+                mainWindow.style.top = `${windowPosition.y}px`;
+                mainWindow.style.transform = 'none';
+            }
+            
+            // 确保窗口在屏幕内
+            function ensureWindowInBounds() {
+                const rect = mainWindow.getBoundingClientRect();
+                const windowWidth = rect.width;
+                const windowHeight = rect.height;
+                
+                const maxX = window.innerWidth - windowWidth;
+                const maxY = window.innerHeight - windowHeight;
+                
+                // 修正位置，确保在屏幕内
+                windowPosition.x = Math.max(0, Math.min(windowPosition.x, maxX));
+                windowPosition.y = Math.max(0, Math.min(windowPosition.y, maxY));
+                
+                // 应用修正后的位置
+                mainWindow.style.left = `${windowPosition.x}px`;
+                mainWindow.style.top = `${windowPosition.y}px`;
             }
             
             // 更新当前时间
@@ -707,6 +742,9 @@
                     mainWindow.classList.remove('dragging');
                     document.body.style.cursor = 'default';
                     
+                    // 确保窗口在边界内
+                    ensureWindowInBounds();
+                    
                     // 应用非线性弹性动画
                     mainWindow.style.transition = 'transform 0.4s cubic-bezier(0.34, 1.56, 0.64, 1)';
                     
@@ -773,6 +811,9 @@
                     isDragging = false;
                     mainWindow.classList.remove('dragging');
                     
+                    // 确保窗口在边界内
+                    ensureWindowInBounds();
+                    
                     mainWindow.style.transition = 'transform 0.4s cubic-bezier(0.34, 1.56, 0.64, 1)';
                     
                     setTimeout(() => {
@@ -793,6 +834,9 @@
             closeBtn.addEventListener('click', () => {
                 if (windowClosed) return;
                 
+                // 保存当前位置
+                originalWindowPosition = { ...windowPosition };
+                
                 // 添加关闭动画
                 mainWindow.style.transition = 'all 0.5s cubic-bezier(0.34, 1.56, 0.64, 1)';
                 mainWindow.classList.add('hidden');
@@ -804,15 +848,18 @@
                     windowClosed = true;
                 }, 300);
                 
-                createRipple({ clientX: closeBtn.offsetLeft + 20, clientY: closeBtn.offsetTop + 10 });
+                createRipple({ clientX: closeBtn.offsetLeft + 10, clientY: closeBtn.offsetTop + 10 });
             });
             
-            // 重新打开窗口功能
+            // 重新打开窗口功能 - 修复溢出问题
             reopenButton.addEventListener('click', () => {
                 if (!windowClosed) return;
                 
                 // 隐藏重新打开按钮
                 reopenButton.classList.remove('visible');
+                
+                // 确保窗口在屏幕中心（解决溢出问题）
+                initWindowPosition();
                 
                 // 显示主窗口（带弹性动画）
                 mainWindow.style.transition = 'all 0.6s cubic-bezier(0.34, 1.56, 0.64, 1)';
@@ -820,9 +867,9 @@
                 
                 // 添加弹性效果
                 setTimeout(() => {
-                    mainWindow.style.transform = 'translate(-50%, -50%) scale(1.05)';
+                    mainWindow.style.transform = 'translate(0, 0) scale(1.05)';
                     setTimeout(() => {
-                        mainWindow.style.transform = 'translate(-50%, -50%) scale(1)';
+                        mainWindow.style.transform = 'translate(0, 0) scale(1)';
                     }, 150);
                 }, 10);
                 
@@ -831,8 +878,8 @@
                 windowClosed = false;
                 
                 createRipple({ 
-                    clientX: reopenButton.getBoundingClientRect().left + 50, 
-                    clientY: reopenButton.getBoundingClientRect().top + 25 
+                    clientX: reopenButton.getBoundingClientRect().left + 40, 
+                    clientY: reopenButton.getBoundingClientRect().top + 20 
                 });
             });
             
@@ -857,7 +904,7 @@
                         // 发布完成提示
                         const titleElement = document.querySelector('.vista-glass-dark h1');
                         if (titleElement) {
-                            titleElement.innerHTML = '<i class="fa fa-check-circle mr-3"></i>SpaceOS 6 已发布！';
+                            titleElement.innerHTML = '<i class="fa fa-check-circle mr-2"></i>SpaceOS 6 已发布！';
                             titleElement.classList.add('animate-bounce-soft');
                         }
                         return;
@@ -910,7 +957,7 @@
             
             // 气泡效果
             function createBubbles() {
-                const bubbleCount = 30;
+                const bubbleCount = 20;
                 const existingBubbles = bubblesContainer.querySelectorAll('.bubble');
                 
                 // 移除多余气泡
@@ -925,12 +972,12 @@
                     const bubble = document.createElement('div');
                     bubble.classList.add('bubble');
                     
-                    const size = Math.random() * 30 + 10;
+                    const size = Math.random() * 20 + 8;
                     const opacity = Math.random() * 0.5 + 0.3;
                     const posX = Math.random() * 100;
                     const posY = Math.random() * 100;
-                    const duration = Math.random() * 25 + 20;
-                    const delay = Math.random() * 10;
+                    const duration = Math.random() * 20 + 15;
+                    const delay = Math.random() * 5;
                     
                     bubble.style.width = `${size}px`;
                     bubble.style.height = `${size}px`;
@@ -952,8 +999,8 @@
                 mouseY = e.clientY / window.innerHeight - 0.5;
                 
                 // 背景视差效果（非线性缓动）
-                const targetX = mouseX * 20;
-                const targetY = mouseY * 20;
+                const targetX = mouseX * 15;
+                const targetY = mouseY * 15;
                 const scale = 1.05;
                 
                 bgImage.style.transform = `translate(${targetX}px, ${targetY}px) scale(${scale})`;
@@ -969,7 +1016,7 @@
                 const bubble = document.createElement('div');
                 bubble.classList.add('bubble');
                 
-                const size = Math.random() * 15 + 5;
+                const size = Math.random() * 12 + 4;
                 const opacity = Math.random() * 0.6 + 0.3;
                 
                 bubble.style.width = `${size}px`;
@@ -979,7 +1026,7 @@
                 bubble.style.top = `${y}px`;
                 bubble.style.transform = 'translate(-50%, -50%)';
                 
-                const duration = Math.random() * 2.5 + 1.5;
+                const duration = Math.random() * 2 + 1.5;
                 
                 bubble.style.animation = `floatBubble ${duration}s forwards cubic-bezier(0.34, 1.56, 0.64, 1)`;
                 
@@ -992,7 +1039,7 @@
             
             // 涟漪效果
             function createRipple(e) {
-                const size = Math.max(window.innerWidth, window.innerHeight) * 0.2;
+                const size = Math.max(window.innerWidth, window.innerHeight) * 0.15;
                 const ripple = document.createElement('div');
                 ripple.classList.add('ripple-effect');
                 
@@ -1026,7 +1073,7 @@
                         opacity: 0.8;
                     }
                     100% {
-                        transform: translate(-50%, -50%) translateY(-100px) translateX(${Math.random() * 30 - 15}px);
+                        transform: translate(-50%, -50%) translateY(-80px) translateX(${Math.random() * 20 - 10}px);
                         opacity: 0;
                     }
                 }
@@ -1036,7 +1083,7 @@
                         box-shadow: 0 0 0 0 rgba(6, 214, 160, 0.7);
                     }
                     70% {
-                        box-shadow: 0 0 0 10px rgba(6, 214, 160, 0);
+                        box-shadow: 0 0 0 8px rgba(6, 214, 160, 0);
                     }
                     100% {
                         box-shadow: 0 0 0 0 rgba(6, 214, 160, 0);
@@ -1056,18 +1103,20 @@
             const timeInterval = setInterval(updateCurrentTime, 1000);
             setInterval(createBubbles, 20000);
             
-            // 窗口调整大小
+            // 窗口调整大小 - 修复重新打开后溢出问题
             window.addEventListener('resize', () => {
                 // 确保窗口在调整大小时保持在视口内
-                const rect = mainWindow.getBoundingClientRect();
-                const maxX = window.innerWidth - rect.width;
-                const maxY = window.innerHeight - rect.height;
+                ensureWindowInBounds();
                 
-                windowPosition.x = Math.max(0, Math.min(windowPosition.x, maxX));
-                windowPosition.y = Math.max(0, Math.min(windowPosition.y, maxY));
-                
-                mainWindow.style.left = `${windowPosition.x}px`;
-                mainWindow.style.top = `${windowPosition.y}px`;
+                // 如果窗口已关闭，确保重新打开按钮位置正确
+                if (windowClosed) {
+                    const reopenRect = reopenButton.getBoundingClientRect();
+                    const maxX = window.innerWidth - reopenRect.width;
+                    const maxY = window.innerHeight - reopenRect.height;
+                    
+                    reopenButton.style.right = '20px';
+                    reopenButton.style.bottom = '20px';
+                }
                 
                 createBubbles();
             });
@@ -1096,9 +1145,9 @@
             
             // 初始动画：窗口弹性出现
             setTimeout(() => {
-                mainWindow.style.transform = 'translate(-50%, -50%) scale(1.05)';
+                mainWindow.style.transform = 'translate(0, 0) scale(1.05)';
                 setTimeout(() => {
-                    mainWindow.style.transform = 'translate(-50%, -50%) scale(1)';
+                    mainWindow.style.transform = 'translate(0, 0) scale(1)';
                 }, 200);
             }, 100);
         });
